@@ -6,7 +6,7 @@
 #    By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 16:03:28 by nbonnet           #+#    #+#              #
-#    Updated: 2025/01/13 16:11:13 by nbonnet          ###   ########.fr        #
+#    Updated: 2025/01/13 16:22:24 by nbonnet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ fclean: clean
 	make fclean -C $(PATH_LIBFT)
 
 norm :
-	@norminette $(SRCS) $(PATH_LIBFT) minishell.h
+	@norminette $(SRCS) minishell.h
 
 re: fclean all
 
