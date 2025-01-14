@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   n_minishell.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 16:14:19 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/01/13 16:22:00 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/01/14 17:44:23 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef N_MINISHELL_H
+# define N_MINISHELL_H
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <stdio.h>
@@ -28,5 +28,11 @@
 # include <curses.h>
 # include <term.h>
 # include <sys/ioctl.h>
+# include "./libft/libft.h"
+
+
+//utils.c
+char	*ft_strjoin_with_slash(const char *s1, const char *s2);
+char	*ft_strtok(char *str, const char *delim);
 
 #endif

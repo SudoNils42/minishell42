@@ -6,7 +6,7 @@
 #    By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 16:03:28 by nbonnet           #+#    #+#              #
-#    Updated: 2025/01/13 16:22:24 by nbonnet          ###   ########.fr        #
+#    Updated: 2025/01/14 17:44:07 by nbonnet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ LIBFT = $(PATH_LIBFT)/libft.a
 CC = cc
 CFLAGS = -Wall -Werror -Wextra
 
-SRCS =
+SRCS = n_main.c n_utils.c n_shell_commands.c
 OBJS = $(SRCS:.c=.o)
 
 all: $(LIBFT) $(NAME)
@@ -27,7 +27,7 @@ all: $(LIBFT) $(NAME)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -lreadline -lhistory -o $(NAME)
 
 $(LIBFT):
 	make -C $(PATH_LIBFT)
