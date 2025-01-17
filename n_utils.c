@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 15:21:23 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/01/14 17:44:53 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/01/16 20:14:43 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,26 +25,25 @@ char	*ft_strjoin_with_slash(const char *s1, const char *s2)
 	return (result);
 }
 
-char	*ft_strtok(char *str, const char *delim)
+void	ft_strcpy(char *dst, char *src)
 {
-	static char	*next;
-	char		*token;
+	int	i;
 
-	if (str)
-		next = str;
-	if (!next || !*next)
-		return (NULL);
-	while (*next && (ft_strncmp(delim, next, 1) == 0))
-		next++;
-	if (!*next)
-		return (NULL);
-	token = next;
-	while (*next && (ft_strncmp(delim, next, 1) != 0))
-		next++;
-	if (*next)
+	i = 0;
+	while (src[i] != '\0')
 	{
-		*next = '\0';
-		next++;
+		dst[i] = src[i];
+		i++;
 	}
-	return (token);
+	dst[i] = '\0';
+}
+
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	int	i;
+
+	i = 0;
+	while (s1[i] != '\0' && s2[i] != '\0' && s1[i] == s2[i])
+		i++;
+	return (((unsigned char *)s1)[i] - ((unsigned char *)s2)[i]);
 }

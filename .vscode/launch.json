@@ -1,0 +1,43 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "Déboguer le parent (GDB)",
+			"type": "cppdbg",
+			"request": "launch",
+			"program": "${workspaceFolder}/minishell", // Chemin vers ton exécutable
+			"args": [], // Arguments pour ton programme (facultatif)
+			"stopAtEntry": false,
+			"cwd": "${workspaceFolder}", // Répertoire de travail
+			"environment": [],
+			"externalConsole": true, // Utilise une console externe pour exécuter ton programme
+			"MIMode": "gdb", // Utilise GDB comme débogueur
+			"setupCommands": [
+				{
+					"description": "Active le suivi des processus enfant dans GDB",
+					"text": "-gdb-set follow-fork-mode parent", // Change à "child" pour suivre l'enfant
+					"ignoreFailures": true
+				}
+			]
+		},
+		{
+			"name": "Déboguer l'enfant (GDB)",
+			"type": "cppdbg",
+			"request": "launch",
+			"program": "${workspaceFolder}/minishell",
+			"args": [],
+			"stopAtEntry": false,
+			"cwd": "${workspaceFolder}",
+			"environment": [],
+			"externalConsole": true,
+			"MIMode": "gdb",
+			"setupCommands": [
+				{
+					"description": "Active le suivi des processus enfant dans GDB",
+					"text": "-gdb-set follow-fork-mode child", // Suit le processus enfant
+					"ignoreFailures": true
+				}
+			]
+		}
+	]
+}
