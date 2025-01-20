@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 15:26:43 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/01/16 20:14:36 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/01/20 22:03:33 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ void	start_bash(t_data *data)
 			break ;
 		add_history(data->input);
 		if (ft_strchr(data->input, '|') != 0)
+			start_pipe(data);
+		else if (ft_strchr(data->input, '<') != 0)
 			start_pipe(data);
 		else
 		{

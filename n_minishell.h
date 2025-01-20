@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 16:14:19 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/01/16 18:07:00 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/01/20 21:49:17 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,10 @@ typedef struct s_data
 	int		fd[2];
 	int		cmd_arg_count;
 	int		fd_input;
+	int		new_fd_input;
+	int		cmd_index;
 	int		ac;
+	int		flag_redirect;
 
 	pid_t	pid;
 
@@ -71,6 +74,9 @@ void		start_bash(t_data *data);
 void		create_pipe(t_data *data);
 void		split_cmd_arg_pipe(t_data *data);
 void		start_pipe(t_data *data);
-void		execute_cmd_arg(t_data *data, int index);
+void		execute_cmd_arg(t_data *data);
+
+// redirect.c
+void	check_redirect_input(t_data *data);
 
 #endif
