@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 16:14:19 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/01/20 21:49:17 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/01/21 15:57:44 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,53 +30,58 @@
 # include <termios.h>
 # include <unistd.h>
 
+# define TOKEN_WORD 1
+# define TOKEN_PIPE 2
+# define TOKEN_REDIRECT_IN 3
+# define TOKEN_REDIRECT_OUT 4
+# define TOKEN_EOF 5
+
+typedef struct s_token
+{
+	char		*value;
+	int			type;
+}				t_token;
+
+typedef struct s_command
+{
+	char		**args;
+	int			input_fd;
+	int			output_fd;
+	int			pipe_read;
+	int			pipe_write;
+}				t_command;
+
 typedef struct s_data
 {
-	char	***cmd_arg_pipe;
-	char	**av;
-	char	**env;
-	char	**bash_cmd;
-	char	**cmd_arg;
-	char	**dir;
-	char	*input;
-	char	*input_cpy;
-	char	*path;
-	char	*full_path;
-	int		fd[2];
-	int		cmd_arg_count;
-	int		fd_input;
-	int		new_fd_input;
-	int		cmd_index;
-	int		ac;
-	int		flag_redirect;
+	char		**env;
+	t_token		*tokens;
+	int			token_count;
+	int			current_token;
+	t_command	*current_cmd;
+	char		*input;
+	pid_t		pid;
+	int			next_pipe_read;
+	int *all_pids; // Tableau pour stocker tous les PIDs
+	int pid_count; // Nombre de PIDs stockés
+	int			max_pids;
+}				t_data;
 
-	pid_t	pid;
+// Parser functions
+void			init_data(t_data *data, char **env);
+t_token			*tokenize_input(char *input, int *token_count);
+int				get_token_type(char *token);
+int				parse_command(t_data *data);
+int				process_command_line(t_data *data);
 
-}			t_data;
+// Executor functions
+int				execute_command(t_data *data);
+char			*find_command_path(t_data *data, char *cmd);
+void			handle_redirections(t_data *data);
 
-// main.c
-int			main(int ac, char **av, char **env);
-
-// utils.c
-char		*ft_strjoin_with_slash(const char *s1, const char *s2);
-void		ft_strcpy(char *dst, char *src);
-int			ft_strcmp(const char *s1, const char *s2);
-
-// init.c
-void		init_data(t_data *data, int ac, char **av, char **env);
-
-// bash.c
-int			child_process(t_data *data);
-void		parent_process(t_data *data);
-void		start_bash(t_data *data);
-
-// pipe.c
-void		create_pipe(t_data *data);
-void		split_cmd_arg_pipe(t_data *data);
-void		start_pipe(t_data *data);
-void		execute_cmd_arg(t_data *data);
-
-// redirect.c
-void	check_redirect_input(t_data *data);
+// Utils functions
+char			*ft_strjoin_with_slash(const char *s1, const char *s2);
+void			free_tokens(t_token *tokens, int count);
+void			free_command(t_command *cmd);
+int				ft_strcmp(char *s1, char *s2);
 
 #endif

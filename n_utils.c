@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 15:21:23 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/01/20 18:38:13 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/01/21 15:34:48 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ft_strcpy(char *dst, char *src)
 	dst[i] = '\0';
 }
 
-int	ft_strcmp(const char *s1, const char *s2)
+int	ft_strcmp(char *s1, char *s2)
 {
 	int	i;
 
@@ -46,4 +46,42 @@ int	ft_strcmp(const char *s1, const char *s2)
 	while (s1[i] != '\0' && s2[i] != '\0' && s1[i] == s2[i])
 		i++;
 	return (((unsigned char *)s1)[i] - ((unsigned char *)s2)[i]);
+}
+
+void free_tokens(t_token *tokens, int count)
+{
+    int i;
+
+    if (!tokens)
+        return;
+    i = 0;
+    while (i < count)
+    {
+        free(tokens[i].value);
+        i++;
+    }
+    free(tokens);
+}
+
+void free_command(t_command *cmd)
+{
+    int i;
+
+    if (!cmd)
+        return;
+    if (cmd->args)
+    {
+        i = 0;
+        while (cmd->args[i])
+        {
+            free(cmd->args[i]);
+            i++;
+        }
+        free(cmd->args);
+    }
+    if (cmd->input_fd != STDIN_FILENO)
+        close(cmd->input_fd);
+    if (cmd->output_fd != STDOUT_FILENO)
+        close(cmd->output_fd);
+    free(cmd);
 }

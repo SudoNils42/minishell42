@@ -1,12 +1,6 @@
-ceci est le contenue de file.txt
-ceci
-cecii
-ceci
-test
-afaEaeb
-
-afaEae
-a
-b
-a
-c
+apple
+banana
+cherry
+banana
+apple
+date
