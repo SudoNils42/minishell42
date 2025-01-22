@@ -6,7 +6,7 @@
 #    By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 16:03:28 by nbonnet           #+#    #+#              #
-#    Updated: 2025/01/22 17:11:06 by nbonnet          ###   ########.fr        #
+#    Updated: 2025/01/22 19:13:37 by nbonnet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ LIBFT = $(PATH_LIBFT)/libft.a
 CC = cc
 CFLAGS = -Wall -Werror -Wextra -g
 
-SRCS = n_main.c n_utils.c n_bash.c n_init.c n_token.c n_if_token_type.c
+SRCS = n_main.c n_utils.c n_command.c n_command_path.c n_init.c n_pipe_or_word.c n_redirect.c n_token.c
 OBJS = $(SRCS:.c=.o)
 
 all: $(LIBFT) $(NAME)

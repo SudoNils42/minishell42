@@ -1,36 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   n_main.c                                           :+:      :+:    :+:   */
+/*   n_if_pipe_or_word.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/15 17:23:28 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/01/22 19:10:44 by nbonnet          ###   ########.fr       */
+/*   Created: 2025/01/22 17:10:20 by nbonnet           #+#    #+#             */
+/*   Updated: 2025/01/22 19:05:07 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "n_minishell.h"
 
-void	start(t_data *data)
+int	if_pipe(t_token token)
 {
-	while (1)
-	{
-		data->input = readline("minishell> ");
-		add_history(data->input);
-		data->tokens = tokenize_input(data);
-		data->current_token = 0;
-		process_command_line(data);
-	}
+	if (token.type == TOKEN_PIPE)
+		return (1);
+	return (0);
 }
 
-int	main(int ac, char **av, char **env)
+int	if_word(t_data *data)
 {
-	t_data	data;
-
-	(void)ac;
-	(void)av;
-	init_data(&data, env);
-	start(&data);
+	if (data->tokens[data->current_token].type == TOKEN_WORD)
+	{
+		data->command->args[data->command->args_count] = ft_strdup(data->tokens[data->current_token].value);
+		data->command->args_count++;
+	}
 	return (0);
 }
