@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 15:21:23 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/01/21 15:34:48 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/01/22 17:50:34 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,27 @@ char	*ft_strjoin_with_slash(const char *s1, const char *s2)
 	result = ft_strjoin(tmp, s2);
 	free(tmp);
 	return (result);
+}
+
+char	*find_command_path(char *cmd)
+{
+	char	**path_dirs;
+	char	*path_env;
+	char	*full_path;
+	int		i;
+
+	path_env = getenv("PATH");
+	path_dirs = ft_split(path_env, ':');
+	i = 0;
+	while (path_dirs[i])
+	{
+		full_path = ft_strjoin_with_slash(path_dirs[i], cmd);
+		if (access(full_path, X_OK) == 0)
+			return (full_path);
+		i++;
+	}
+	i = 0;
+	return (NULL);
 }
 
 void	ft_strcpy(char *dst, char *src)
@@ -48,40 +69,40 @@ int	ft_strcmp(char *s1, char *s2)
 	return (((unsigned char *)s1)[i] - ((unsigned char *)s2)[i]);
 }
 
-void free_tokens(t_token *tokens, int count)
+void	free_tokens(t_token *tokens, int count)
 {
-    int i;
+	int	i;
 
-    if (!tokens)
-        return;
-    i = 0;
-    while (i < count)
-    {
-        free(tokens[i].value);
-        i++;
-    }
-    free(tokens);
+	if (!tokens)
+		return ;
+	i = 0;
+	while (i < count)
+	{
+		free(tokens[i].value);
+		i++;
+	}
+	free(tokens);
 }
 
-void free_command(t_command *cmd)
+void	free_command(t_command *cmd)
 {
-    int i;
+	int	i;
 
-    if (!cmd)
-        return;
-    if (cmd->args)
-    {
-        i = 0;
-        while (cmd->args[i])
-        {
-            free(cmd->args[i]);
-            i++;
-        }
-        free(cmd->args);
-    }
-    if (cmd->input_fd != STDIN_FILENO)
-        close(cmd->input_fd);
-    if (cmd->output_fd != STDOUT_FILENO)
-        close(cmd->output_fd);
-    free(cmd);
+	if (!cmd)
+		return ;
+	if (cmd->args)
+	{
+		i = 0;
+		while (cmd->args[i])
+		{
+			free(cmd->args[i]);
+			i++;
+		}
+		free(cmd->args);
+	}
+	if (cmd->input_fd != STDIN_FILENO)
+		close(cmd->input_fd);
+	if (cmd->output_fd != STDOUT_FILENO)
+		close(cmd->output_fd);
+	free(cmd);
 }
