@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 16:14:19 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/01/22 19:13:54 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/01/24 17:29:26 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct s_token
 {
 	char		*value;
 	int			type;
+	int			number;
 }				t_token;
 
 typedef struct s_command
@@ -48,8 +49,8 @@ typedef struct s_command
 	int			args_count;
 	int			input_fd;
 	int			output_fd;
-	int			pipe_read;
-	int			pipe_write;
+	int			fd_in;
+	int			fd_out;
 }				t_command;
 
 typedef struct s_data
@@ -58,12 +59,13 @@ typedef struct s_data
 	char		*input;
 	int			token_count;
 	int			current_token;
+	int			total_pipes;
 	pid_t		pid;
-	int			next_pipe_read;
+	pid_t		*pids;
+	int			pid_index;
 	t_command	*command;
 	t_token		*tokens;
 }				t_data;
-
 
 void			start(t_data *data);
 void			init_data(t_data *data, char **env);
@@ -73,12 +75,12 @@ int				parse_command(t_data *data);
 int				process_command_line(t_data *data);
 int				execute_command(t_data *data);
 char			*find_command_path(char *cmd);
-void			handle_fd(t_data *data);
 char			*ft_strjoin_with_slash(const char *s1, const char *s2);
 int				ft_strcmp(char *s1, char *s2);
 int				if_pipe(t_token token);
 int				redirect_in(t_data *data, int token_count);
 int				redirect_out(t_data *data, int token_count);
 int				if_word(t_data *data);
+void			parent_close_fd(t_data *data);
 
 #endif

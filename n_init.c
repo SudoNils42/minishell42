@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 14:10:21 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/01/22 17:58:04 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/01/24 16:11:59 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,6 @@ void	init_data(t_data *data, char **env)
 	data->current_token = 0;
 	data->command = NULL;
 	data->input = NULL;
-	data->next_pipe_read = -1;
+	data->pids = NULL;
+	data->pid_index = 0;
 }

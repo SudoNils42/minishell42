@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 19:03:09 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/01/22 19:03:33 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/01/23 12:31:26 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ char	*find_command_path(char *cmd)
 	char	*full_path;
 	int		i;
 
+	if (access(cmd, X_OK) == 0)
+		return (ft_strdup(cmd));
 	path_env = getenv("PATH");
 	path_dirs = ft_split(path_env, ':');
 	i = 0;
