@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 16:14:19 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/01/24 17:29:26 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/01/29 15:19:47 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct s_data
 	int			token_count;
 	int			current_token;
 	int			total_pipes;
+	int			prev_pipe_read_end;
 	pid_t		pid;
 	pid_t		*pids;
 	int			pid_index;

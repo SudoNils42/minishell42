@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 19:08:12 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/01/24 18:04:16 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/01/29 15:18:20 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,21 @@ int	parse_command(t_data *data)
 	data->command->fd_out = -1;
 	data->command->fd_in = -1;
 	data->command->args_count = 0;
+	data->command->input_fd = STDIN_FILENO;
+	data->command->output_fd = STDOUT_FILENO;
+	if (data->prev_pipe_read_end != -1)
+	{
+		if (data->command->input_fd == STDIN_FILENO)
+		{
+			data->command->input_fd = data->prev_pipe_read_end;
+			data->prev_pipe_read_end = -1;
+		}
+		else
+		{
+			close(data->prev_pipe_read_end);
+			data->prev_pipe_read_end = -1;
+		}
+	}
 	while (data->current_token < data->token_count)
 	{
 		if (if_pipe(data->tokens[data->current_token]))
@@ -86,11 +101,20 @@ int	execute_command(t_data *data)
 	char	*cmd_path;
 
 	if (data->current_token < data->token_count
-		&& data->tokens[data->current_token].type == TOKEN_PIPE)
+		&& data->tokens[data->current_token].type == TOKEN_PIPE
+		&& data->command->output_fd == STDOUT_FILENO)
 	{
-		pipe(pipe_fd);
-		data->command->fd_in = pipe_fd[0];
+		if (pipe(pipe_fd) == -1)
+		{
+			perror("pipe");
+			return (1);
+		}
 		data->command->fd_out = pipe_fd[1];
+		data->prev_pipe_read_end = pipe_fd[0];
+	}
+	else
+	{
+		data->command->fd_out = -1;
 	}
 	cmd_path = find_command_path(data->command->args[0]);
 	if (!cmd_path)
@@ -103,18 +127,46 @@ int	execute_command(t_data *data)
 	data->pid_index++;
 	if (data->pid == 0)
 	{
-		close(data->command->fd_in);
-		dup2(data->command->fd_out, STDOUT_FILENO);
-		close(data->command->fd_out);
+		// Enfant
+		if (data->command->input_fd != STDIN_FILENO)
+		{
+			dup2(data->command->input_fd, STDIN_FILENO);
+			close(data->command->input_fd);
+		}
+		if (data->command->output_fd != STDOUT_FILENO)
+		{
+			dup2(data->command->output_fd, STDOUT_FILENO);
+			close(data->command->output_fd);
+		}
+		else if (data->command->fd_out != -1)
+		{
+			dup2(data->command->fd_out, STDOUT_FILENO);
+			close(data->command->fd_out);
+		}
+		if (data->prev_pipe_read_end != -1)
+		{
+			close(data->prev_pipe_read_end);
+		}
 		execve(cmd_path, data->command->args, data->env);
 		perror("execve failed");
 		exit(1);
 	}
 	else
 	{
-		close(data->command->fd_out);
-		data->command->fd_in = pipe_fd[0];
-		close(data->command->fd_in);
+		// Parent
+		if (data->command->fd_out != -1)
+		{
+			close(data->command->fd_out);
+		}
+		if (data->command->input_fd != STDIN_FILENO)
+		{
+			close(data->command->input_fd);
+		}
+		if (data->command->output_fd != STDOUT_FILENO)
+		{
+			close(data->command->output_fd);
+		}
 	}
+	free(cmd_path);
 	return (0);
 }
