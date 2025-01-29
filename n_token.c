@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 16:48:12 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/01/23 12:31:32 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/01/29 16:52:28 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ t_token	*tokenize_input(t_data *data)
 	}
 	return (tokens);
 }
-
 
 int	get_token_type(char *token)
 {

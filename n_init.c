@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 14:10:21 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/01/24 16:11:59 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/01/29 17:50:49 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,24 @@ void	init_data(t_data *data, char **env)
 	data->input = NULL;
 	data->pids = NULL;
 	data->pid_index = 0;
+}
+
+void	init_command(t_data *data)
+{
+	data->command = malloc(sizeof(t_command));
+	data->command->args = malloc(sizeof(char *) * data->token_count);
+	data->command->fd_out = -1;
+	data->command->fd_in = -1;
+	data->command->args_count = 0;
+	data->command->input_fd = STDIN_FILENO;
+	data->command->output_fd = STDOUT_FILENO;
+}
+
+void	init_pid_list(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i <= data->token_count)
+		data->pids[i++] = -1;
 }

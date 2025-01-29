@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 16:14:19 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/01/29 15:19:47 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/01/29 18:05:53 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,20 +68,45 @@ typedef struct s_data
 	t_token		*tokens;
 }				t_data;
 
+// main.c
 void			start(t_data *data);
+
+// init.c
 void			init_data(t_data *data, char **env);
+void			init_command(t_data *data);
+void			init_pid_list(t_data *data);
+
+// token.c
 t_token			*tokenize_input(t_data *data);
 int				get_token_type(char *token);
+
+// exec_utils.c
+void			wait_for_children(t_data *data);
+void			run_child_process(t_data *data, char *cmd_path);
+void			cleanup_parent(t_data *data);
+void			setup_pipe(t_data *data, int pipe_fd[2]);
+void			prepare_pipe_connection(t_data *data);
+
+// exec.c
 int				parse_command(t_data *data);
 int				process_command_line(t_data *data);
 int				execute_command(t_data *data);
+void			handle_previous_pipe(t_data *data);
+
+// command_path.c
 char			*find_command_path(char *cmd);
 char			*ft_strjoin_with_slash(const char *s1, const char *s2);
+
+// utils.c
 int				ft_strcmp(char *s1, char *s2);
-int				if_pipe(t_token token);
+
+// redirect.c
 int				redirect_in(t_data *data, int token_count);
 int				redirect_out(t_data *data, int token_count);
+int				handle_redirection(t_data *data);
+
+// pipe_or_word.c
 int				if_word(t_data *data);
-void			parent_close_fd(t_data *data);
+int				if_pipe(t_token token);
 
 #endif
