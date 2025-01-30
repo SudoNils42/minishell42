@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 19:08:12 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/01/30 16:49:38 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/01/30 21:32:51 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,21 +73,22 @@ int	parse_command(t_data *data)
 int	execute_command(t_data *data)
 {
 	char	*cmd_path;
+	int		is_builtin_cmd;
 
 	prepare_pipe_connection(data);
-	// Nouvelle vérification des builtins AVANT le fork
-	if (is_builtin(data))
+	is_builtin_cmd = is_builtin(data);
+	cmd_path = NULL;
+	if (!is_builtin_cmd)
 	{
-		exec_builtins(data); // Exécuté dans le processus principal
-		return (0);
+		cmd_path = find_command_path(data->command->args[0]);
+		if (!cmd_path)
+			return (printf("%s: command not found\n", data->command->args[0]),
+				1);
 	}
-	cmd_path = find_command_path(data->command->args[0]);
-	if (!cmd_path)
-		return (printf("%s: command not found\n", data->command->args[0]), 1);
 	data->pid = fork();
 	data->pids[data->pid_index++] = data->pid;
 	if (data->pid == 0)
-		run_child_process(data, cmd_path);
+		run_child_process(data, cmd_path, is_builtin_cmd);
 	else
 		cleanup_parent(data);
 	return (0);

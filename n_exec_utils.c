@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 17:51:27 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/01/30 16:50:10 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/01/30 21:34:19 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,24 @@ void	wait_for_children(t_data *data)
 		waitpid(data->pids[i++], &status, 0);
 }
 
-void    run_child_process(t_data *data, char *cmd_path)
+void	run_child_process(t_data *data, char *cmd_path, int is_builtin)
 {
-    if (data->command->input_fd != STDIN_FILENO)
-        dup2(data->command->input_fd, STDIN_FILENO);
-    if (data->command->output_fd != STDOUT_FILENO)
-        dup2(data->command->output_fd, STDOUT_FILENO);
-    else if (data->command->fd_out != -1)
-        dup2(data->command->fd_out, STDOUT_FILENO);
-    if (data->prev_pipe_read_end != -1)
-        close(data->prev_pipe_read_end);
-
-    // On exécute SEULEMENT les commandes externes ici
-    execve(cmd_path, data->command->args, data->env);
-    perror("execve failed");
-    exit(1);
+	if (data->command->input_fd != STDIN_FILENO)
+		dup2(data->command->input_fd, STDIN_FILENO);
+	if (data->command->output_fd != STDOUT_FILENO)
+		dup2(data->command->output_fd, STDOUT_FILENO);
+	else if (data->command->fd_out != -1)
+		dup2(data->command->fd_out, STDOUT_FILENO);
+	if (data->prev_pipe_read_end != -1)
+		close(data->prev_pipe_read_end);
+	if (is_builtin)
+		exec_builtins(data);
+	else
+	{
+		execve(cmd_path, data->command->args, data->env);
+		perror("execve failed");
+	}
+	exit(1);
 }
 
 void	cleanup_parent(t_data *data)

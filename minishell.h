@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 16:14:19 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/01/30 16:49:57 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/01/30 21:31:46 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int				get_token_type(char *token);
 
 // exec_utils.c
 void			wait_for_children(t_data *data);
-void			run_child_process(t_data *data, char *cmd_path);
+void    run_child_process(t_data *data, char *cmd_path, int is_builtin);
 void			cleanup_parent(t_data *data);
 void			setup_pipe(t_data *data, int pipe_fd[2]);
 void			prepare_pipe_connection(t_data *data);
