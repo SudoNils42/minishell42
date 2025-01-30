@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 14:10:21 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/01/30 16:11:12 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/01/30 21:54:23 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	init_command(t_data *data)
 	data->command->args_count = 0;
 	data->command->input_fd = STDIN_FILENO;
 	data->command->output_fd = STDOUT_FILENO;
+	data->command->args[0] = NULL;
 }
 
 void	init_pid_list(t_data *data)

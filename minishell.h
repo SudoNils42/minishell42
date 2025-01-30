@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 16:14:19 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/01/30 21:31:46 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/01/30 21:48:01 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ void    run_child_process(t_data *data, char *cmd_path, int is_builtin);
 void			cleanup_parent(t_data *data);
 void			setup_pipe(t_data *data, int pipe_fd[2]);
 void			prepare_pipe_connection(t_data *data);
+void    apply_redirections(t_data *data);
+void    restore_redirections(t_data *data);
 
 // exec.c
 int				parse_command(t_data *data);

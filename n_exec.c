@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 19:08:12 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/01/30 21:32:51 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/01/30 22:04:12 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,15 @@ int	execute_command(t_data *data)
 
 	prepare_pipe_connection(data);
 	is_builtin_cmd = is_builtin(data);
-	cmd_path = NULL;
-	if (!is_builtin_cmd)
+	if (is_builtin_cmd && data->command->fd_out == -1
+		&& data->prev_pipe_read_end == -1)
+	{
+		exec_builtins(data);
+		return (0);
+	}
+	if (is_builtin_cmd)
+		cmd_path = NULL;
+	else
 	{
 		cmd_path = find_command_path(data->command->args[0]);
 		if (!cmd_path)
