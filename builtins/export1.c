@@ -1,0 +1,116 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export1.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/15 17:04:34 by rabatist          #+#    #+#             */
+/*   Updated: 2025/01/30 16:09:39 by nbonnet          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../minishell.h"
+
+void	bubble_sort(char **env)
+{
+	int		i;
+	int		j;
+	int		size;
+	char	*tmp;
+
+	size = 0;
+	i = 0;
+	while (env[size])
+		size++;
+	while (i < size - 1)
+	{
+		j = 0;
+		while (j < size - i - 1)
+		{
+			if (ft_strncmp(env[j], env[j + 1], ft_strlen(env[j])) > 0)
+			{
+				tmp = env[j];
+				env[j] = env[j + 1];
+				env[j + 1] = tmp;
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
+int	is_valid_var_name(char *var)
+{
+	int	i;
+
+	i = 0;
+	if (!ft_isalpha(var[0]) && var[0] != '_')
+		return (0);
+	while (var[i] && var[i] != '=')
+	{
+		if (!ft_isalnum(var[i]) && var[i] != '_')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+void	export_without_args(t_data *data)
+{
+	int		i;
+	char	*sign;
+
+	bubble_sort(data->exp);
+	i = 0;
+	while (data->exp[i])
+	{
+		sign = ft_strchr(data->exp[i], '=');
+		if (sign)
+			printf("declare -x %.*s=\"%s\"\n",
+				(int)(sign - data->exp[i]), data->exp[i], sign + 1);
+		else
+			printf("declare -x %s\n", data->exp[i]);
+		i++;
+	}
+}
+
+void	update_exp_without_equal(t_data *data, char *str)
+{
+	int	i;
+
+	i = 0;
+	while (data->exp[i])
+	{
+		if (!ft_strncmp(data->exp[i], str, ft_strlen(str))
+			&& (data->exp[i][ft_strlen(str)] == '='
+			|| data->exp[i][ft_strlen(str)] == '\0'))
+			return ;
+		i++;
+	}
+	data->exp[i] = ft_strdup(str);
+	data->exp[i + 1] = NULL;
+}
+
+int	ft_export(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	if (!data->command->args[1])
+	{
+		export_without_args(data);
+		return (0);
+	}
+	while (data->command->args[++i])
+	{
+		if (is_valid_var_name(data->command->args[i]))
+			valid_var_name(data, i);
+		else
+		{
+			printf("export: `%s': not a valid identifier\n", data->command->args[i]);
+			return (1);
+		}
+	}
+	return (0);
+}

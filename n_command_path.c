@@ -6,11 +6,11 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 19:03:09 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/01/23 12:31:26 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/01/30 16:07:02 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "n_minishell.h"
+#include "minishell.h"
 
 char	*ft_strjoin_with_slash(const char *s1, const char *s2)
 {

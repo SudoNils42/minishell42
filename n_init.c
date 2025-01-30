@@ -6,11 +6,11 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 14:10:21 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/01/29 17:50:49 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/01/30 16:11:12 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "n_minishell.h"
+#include "minishell.h"
 
 void	init_data(t_data *data, char **env)
 {
@@ -22,12 +22,15 @@ void	init_data(t_data *data, char **env)
 	data->input = NULL;
 	data->pids = NULL;
 	data->pid_index = 0;
+	data->exit_status = 0;
+	make_env(data, env);
+	make_exp(data, env);
 }
 
 void	init_command(t_data *data)
 {
 	data->command = malloc(sizeof(t_command));
-	data->command->args = malloc(sizeof(char *) * data->token_count);
+	data->command->args = malloc(sizeof(char *) * (data->token_count + 1));
 	data->command->fd_out = -1;
 	data->command->fd_in = -1;
 	data->command->args_count = 0;

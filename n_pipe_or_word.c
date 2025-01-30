@@ -6,11 +6,11 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 17:10:20 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/01/29 18:17:44 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/01/30 16:07:27 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "n_minishell.h"
+#include "minishell.h"
 
 int	if_pipe(t_token token)
 {

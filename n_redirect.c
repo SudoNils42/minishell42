@@ -6,11 +6,11 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 19:04:22 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/01/29 17:58:46 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/01/30 16:07:37 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "n_minishell.h"
+#include "minishell.h"
 
 int	redirect_in(t_data *data, int token_count)
 {

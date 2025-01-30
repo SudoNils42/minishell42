@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   n_minishell.h                                      :+:      :+:    :+:   */
+/*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 16:14:19 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/01/29 18:05:53 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/01/30 16:49:57 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # include <term.h>
 # include <termios.h>
 # include <unistd.h>
+# include <linux/limits.h>
 
 # define TOKEN_WORD 1
 # define TOKEN_PIPE 2
@@ -56,6 +57,7 @@ typedef struct s_command
 typedef struct s_data
 {
 	char		**env;
+	char	**exp;
 	char		*input;
 	int			token_count;
 	int			current_token;
@@ -64,6 +66,7 @@ typedef struct s_data
 	pid_t		pid;
 	pid_t		*pids;
 	int			pid_index;
+	int			exit_status;
 	t_command	*command;
 	t_token		*tokens;
 }				t_data;
@@ -108,5 +111,45 @@ int				handle_redirection(t_data *data);
 // pipe_or_word.c
 int				if_word(t_data *data);
 int				if_pipe(t_token token);
+
+void	exec_builtins(t_data *data);
+int	is_builtin(t_data *data);
+// builtins
+
+int				ft_cd(t_data *data);
+int				ft_cd2(t_data *data);
+void			update_old_pwd_env(t_data *data);
+void			update_old_pwd_env2(t_data *data, char *pwd);
+void			update_old_pwd_exp(t_data *data);
+void			update_old_pwd_exp2(t_data *data, char *pwd);
+void			update_pwd_env(t_data *data);
+void			update_pwd_exp(t_data *data);
+
+int				ft_echo(t_data *data);
+void			ft_echo_print(t_data *data, int i, int line);
+
+int				ft_env(t_data *data);
+
+int				ft_exit(void);
+
+void			bubble_sort(char **env);
+void			valid_var_name(t_data *data, int i);
+int				is_valid_var_name(char *var);
+void			export_without_args(t_data *data);
+void			update_env_with_equal(t_data *data, char *str);
+void			update_exp_with_equal(t_data *data, char *str);
+void			update_exp_without_equal(t_data *data, char *str);
+int				ft_export(t_data *data);
+
+int				ft_pwd(void);
+
+int				ft_unset(t_data *data);
+void			unset_var(t_data *data, char *var_name);
+void			unset_var_in_exp(t_data *data, char *var_name);
+
+//
+void	make_env(t_data *data, char **env);
+void	make_exp(t_data *data, char **env);
+
 
 #endif

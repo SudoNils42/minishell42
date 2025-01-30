@@ -6,11 +6,11 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 15:21:23 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/01/29 16:53:06 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/01/30 16:07:46 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "n_minishell.h"
+#include "minishell.h"
 
 void	ft_strcpy(char *dst, char *src)
 {

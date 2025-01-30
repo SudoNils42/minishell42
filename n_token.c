@@ -6,11 +6,11 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 16:48:12 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/01/29 16:52:28 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/01/30 16:07:40 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "n_minishell.h"
+#include "minishell.h"
 
 t_token	*tokenize_input(t_data *data)
 {
