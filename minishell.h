@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: rabatist <rabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 16:14:19 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/01/30 21:48:01 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/01/31 16:06:22 by rabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int				execute_command(t_data *data);
 void			handle_previous_pipe(t_data *data);
 
 // command_path.c
-char			*find_command_path(char *cmd);
+char			*find_command_path(char *cmd, t_data *data);
 char			*ft_strjoin_with_slash(const char *s1, const char *s2);
 
 // utils.c
@@ -126,6 +126,7 @@ void			update_old_pwd_exp(t_data *data);
 void			update_old_pwd_exp2(t_data *data, char *pwd);
 void			update_pwd_env(t_data *data);
 void			update_pwd_exp(t_data *data);
+char			*ft_get_home(t_data *data);
 
 int				ft_echo(t_data *data);
 void			ft_echo_print(t_data *data, int i, int line);
@@ -152,6 +153,14 @@ void			unset_var_in_exp(t_data *data, char *var_name);
 //
 void	make_env(t_data *data, char **env);
 void	make_exp(t_data *data, char **env);
-
+char	*find_path(t_data *data);
+void	signals(void);
+void	sig_int(int signal);
+int		check_args(char *str);
+int		is_quotes_open(char *str);
+void	check_dollars(t_data *data);
+void	get_exit_status(t_data *data, int i);
+char	*get_env_value(char *str, t_data *data);
+char	*ft_get_home(t_data *data);
 
 #endif

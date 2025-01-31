@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   n_exec.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: rabatist <rabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 19:08:12 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/01/31 14:22:52 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/01/31 15:14:16 by rabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ int	parse_command(t_data *data)
 		data->current_token++;
 	}
 	data->command->args[data->command->args_count] = NULL;
+	check_dollars(data);
 	return (data->command->args_count == 0);
 }
 
@@ -87,7 +88,7 @@ int	execute_command(t_data *data)
 		cmd_path = NULL;
 	else
 	{
-		cmd_path = find_command_path(data->command->args[0]);
+		cmd_path = find_command_path(data->command->args[0], data);
 		if (!cmd_path)
 			return (printf("%s: command not found\n", data->command->args[0]),
 				1);

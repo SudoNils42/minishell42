@@ -1,5 +1,6 @@
 {
 	"files.associations": {
-		"n_minishell.h": "c"
+		"n_minishell.h": "c",
+		"minishell.h": "c"
 	}
 }
