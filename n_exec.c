@@ -6,7 +6,7 @@
 /*   By: rabatist <rabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 19:08:12 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/01/31 15:14:16 by rabatist         ###   ########.fr       */
+/*   Updated: 2025/01/31 16:33:37 by rabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,14 @@ int	parse_command(t_data *data)
 			break ;
 		else if (handle_redirection(data) == 1)
 		{
-			if ((data->command->input_fd == -1) || (data->command->output_fd ==
-					-1))
+			if ((data->command->input_fd == -1) || (data->command->output_fd
+					== -1))
 				return (1);
 		}
 		else
 		{
-			data->command->args[data->command->args_count] = data->tokens[data->current_token].value;
+			data->command->args[data->command->args_count]
+				= data->tokens[data->current_token].value;
 			data->command->args_count++;
 		}
 		data->current_token++;

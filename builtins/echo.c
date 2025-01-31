@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: rabatist <rabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 15:57:29 by rabatist          #+#    #+#             */
-/*   Updated: 2025/01/30 21:28:08 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/01/31 16:31:01 by rabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ int	ft_echo(t_data *data)
 
 	i = 1;
 	line = 1;
-	while (data->command->args[i] && data->command->args[i][0] == '-' && data->command->args[i][1] == 'n')
+	while (data->command->args[i] && data->command->args[i][0]
+		== '-' && data->command->args[i][1] == 'n')
 	{
 		j = 1;
 		while (data->command->args[i][j] == 'n')
@@ -31,7 +32,7 @@ int	ft_echo(t_data *data)
 			i++;
 		}
 		else
-			break;
+			break ;
 	}
 	ft_echo_print(data, i, line);
 	return (0);

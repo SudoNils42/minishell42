@@ -6,12 +6,12 @@
 /*   By: rabatist <rabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 16:14:19 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/01/31 16:24:30 by rabatist         ###   ########.fr       */
+/*   Updated: 2025/01/31 16:34:01 by rabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef N_MINISHELL_H
-# define N_MINISHELL_H
+#ifndef MINISHELL_H
+# define MINISHELL_H
 # include "./libft/libft.h"
 # include <curses.h>
 # include <dirent.h>
@@ -57,7 +57,7 @@ typedef struct s_command
 typedef struct s_data
 {
 	char		**env;
-	char	**exp;
+	char		**exp;
 	char		*input;
 	int			token_count;
 	int			current_token;
@@ -121,11 +121,12 @@ int				is_builtin(t_data *data);
 // BUILTINS
 //cd.c
 int				ft_cd(t_data *data);
-int				ft_cd2(t_data *data);
 void			update_old_pwd_env(t_data *data);
 void			update_old_pwd_env2(t_data *data, char *pwd);
 void			update_old_pwd_exp(t_data *data);
 void			update_old_pwd_exp2(t_data *data, char *pwd);
+//cd2.c
+int				ft_cd2(t_data *data);
 void			update_pwd_env(t_data *data);
 void			update_pwd_exp(t_data *data);
 char			*ft_get_home(t_data *data);
@@ -141,10 +142,12 @@ void			bubble_sort(char **env);
 void			valid_var_name(t_data *data, int i);
 int				is_valid_var_name(char *var);
 void			export_without_args(t_data *data);
+int				ft_export(t_data *data);
+//export2.c
 void			update_env_with_equal(t_data *data, char *str);
 void			update_exp_with_equal(t_data *data, char *str);
 void			update_exp_without_equal(t_data *data, char *str);
-int				ft_export(t_data *data);
+
 //pwd.c
 int				ft_pwd(void);
 //unset.c

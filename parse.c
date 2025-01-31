@@ -6,7 +6,7 @@
 /*   By: rabatist <rabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 14:33:24 by rabatist          #+#    #+#             */
-/*   Updated: 2025/01/31 15:10:08 by rabatist         ###   ########.fr       */
+/*   Updated: 2025/01/31 16:32:02 by rabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	check_dollars(t_data *data)
 	int		i;
 	char	*str;
 	char	*env_value;
-	
+
 	i = -1;
 	while (data->command->args[++i])
 	{

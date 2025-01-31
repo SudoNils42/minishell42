@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   n_exec_builtins.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: rabatist <rabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 15:55:53 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/01/31 14:23:47 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/01/31 16:32:27 by rabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,6 @@ void	exec_builtins(t_data *data)
 		data->exit_status = ft_export(data);
 	else if (ft_strcmp(data->command->args[0], "unset") == 0)
 		data->exit_status = ft_unset(data);
-	else if (ft_strcmp(data->command->args[0], "exit")== 0)
+	else if (ft_strcmp(data->command->args[0], "exit") == 0)
 		data->exit_status = ft_exit();
 }

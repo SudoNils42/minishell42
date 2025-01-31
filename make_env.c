@@ -6,7 +6,7 @@
 /*   By: rabatist <rabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 16:11:24 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/01/31 15:38:49 by rabatist         ###   ########.fr       */
+/*   Updated: 2025/01/31 16:34:23 by rabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	make_env(t_data *data, char **env)
 	j = -1;
 	while (++j < i)
 		data->env[j] = ft_strdup(env[j]);
-	data->env[i] = NULL; 
+	data->env[i] = NULL;
 }
 
 void	make_exp(t_data *data, char **env)
