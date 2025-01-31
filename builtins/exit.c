@@ -6,14 +6,18 @@
 /*   By: rabatist <rabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 14:39:23 by rabatist          #+#    #+#             */
-/*   Updated: 2025/01/28 18:01:32 by rabatist         ###   ########.fr       */
+/*   Updated: 2025/01/31 17:51:31 by rabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	ft_exit(void)
+int	ft_exit(t_data *data)
 {
 	printf("exit\n");
-	exit(0);
+	if (!data->command->args[1])
+	{
+		exit (0);
+	}
+	exit (0);
 }

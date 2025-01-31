@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: rabatist <rabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 16:43:54 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/01/31 16:44:00 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/01/31 17:23:55 by rabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ void			ft_echo_print(t_data *data, int i, int line);
 //env.c
 int				ft_env(t_data *data);
 //exit.c
-int				ft_exit(void);
+int				ft_exit(t_data *data);
 //export.c
 void			bubble_sort(char **env);
 void			valid_var_name(t_data *data, int i);
