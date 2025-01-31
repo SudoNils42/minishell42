@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: rabatist <rabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 16:25:34 by rabatist          #+#    #+#             */
-/*   Updated: 2025/01/30 21:53:36 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/01/31 15:31:02 by rabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_cd(t_data *data)
 
 	if (!data->command->args[1])
 	{
-		home = getenv("HOME");
+		home = ft_get_home(data);
 		if (!home)
 		{
 			printf("cd: HOME not set\n");

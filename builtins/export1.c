@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: rabatist <rabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 17:04:34 by rabatist          #+#    #+#             */
-/*   Updated: 2025/01/30 16:09:39 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/01/31 16:31:37 by rabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,8 @@ int	ft_export(t_data *data)
 			valid_var_name(data, i);
 		else
 		{
-			printf("export: `%s': not a valid identifier\n", data->command->args[i]);
+			printf("export: `%s': not a valid identifier\n",
+				data->command->args[i]);
 			return (1);
 		}
 	}

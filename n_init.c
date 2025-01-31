@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   n_init.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: rabatist <rabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 14:10:21 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/01/30 21:54:23 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/01/31 14:28:46 by rabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ void	init_data(t_data *data, char **env)
 	data->pids = NULL;
 	data->pid_index = 0;
 	data->exit_status = 0;
-	make_env(data, env);
-	make_exp(data, env);
 }
 
 void	init_command(t_data *data)

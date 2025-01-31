@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd2.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: rabatist <rabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 17:34:50 by rabatist          #+#    #+#             */
-/*   Updated: 2025/01/30 16:09:10 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/01/31 16:03:26 by rabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,23 @@ int	ft_cd2(t_data *data)
 	else
 		chdir(data->command->args[1]);
 	return (0);
+}
+
+char	*ft_get_home(t_data *data)
+{
+	int		i;
+	char	*home;
+
+	i = 0;
+	while (data->env[i])
+	{
+		if (ft_strncmp(data->env[i], "HOME=", 5) == 0)
+		{
+			home = ft_strchr(data->env[i], '=');
+			if (home)
+				return (home + 1);
+		}
+		i++;
+	}
+	return (NULL);
 }

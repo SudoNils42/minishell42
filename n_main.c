@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   n_main.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: rabatist <rabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 17:23:28 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/01/30 16:07:22 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/01/31 15:09:10 by rabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,13 @@ void	start(t_data *data)
 	while (1)
 	{
 		data->input = readline("minishell> ");
+		if (!data->input)
+		{
+			printf("exit\n");
+			break ;
+		}
+		if (!check_args(data->input))
+			continue ;
 		add_history(data->input);
 		data->tokens = tokenize_input(data);
 		data->current_token = 0;
@@ -31,6 +38,9 @@ int	main(int ac, char **av, char **env)
 	(void)ac;
 	(void)av;
 	init_data(&data, env);
+	make_env(&data, env);
+	make_exp(&data, env);
+	signals();
 	start(&data);
 	return (0);
 }

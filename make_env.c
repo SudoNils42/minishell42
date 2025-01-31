@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: rabatist <rabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 16:11:24 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/01/30 16:50:55 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/01/31 16:34:23 by rabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,8 @@ void	make_env(t_data *data, char **env)
 	j = -1;
 	while (++j < i)
 		data->env[j] = ft_strdup(env[j]);
-	data->env[i] = NULL; // Terminaison explicite
+	data->env[i] = NULL;
 }
-
-// Faire la même modification pour make_exp()
 
 void	make_exp(t_data *data, char **env)
 {

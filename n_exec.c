@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/22 19:08:12 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/01/31 15:56:33 by nbonnet          ###   ########.fr       */
+/*   Created: 2025/01/31 16:44:05 by nbonnet           #+#    #+#             */
+/*   Updated: 2025/01/31 16:44:12 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,18 +55,20 @@ int	parse_command(t_data *data)
 			break ;
 		else if (handle_redirection(data) == 1)
 		{
-			if ((data->command->input_fd == -1) || (data->command->output_fd ==
-					-1))
+			if ((data->command->input_fd == -1) || (data->command->output_fd
+					== -1))
 				return (1);
 		}
 		else
 		{
-			data->command->args[data->command->args_count] = data->tokens[data->current_token].value;
+			data->command->args[data->command->args_count]
+				= data->tokens[data->current_token].value;
 			data->command->args_count++;
 		}
 		data->current_token++;
 	}
 	data->command->args[data->command->args_count] = NULL;
+	check_dollars(data);
 	return (data->command->args_count == 0);
 }
 
@@ -88,7 +90,7 @@ int	execute_command(t_data *data)
 		cmd_path = NULL;
 	else
 	{
-		cmd_path = find_command_path(data->command->args[0]);
+		cmd_path = find_command_path(data->command->args[0], data);
 		if (!cmd_path)
 			return (printf("%s: command not found\n", data->command->args[0]),
 				1);
