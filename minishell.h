@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 16:14:19 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/01/30 21:48:01 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/01/31 16:37:21 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@
 # define TOKEN_PIPE 2
 # define TOKEN_REDIRECT_IN 3
 # define TOKEN_REDIRECT_OUT 4
-# define TOKEN_EOF 5
+# define TOKEN_REDIRECT_APPEND 5
+# define TOKEN_EOF 6
 
 typedef struct s_token
 {

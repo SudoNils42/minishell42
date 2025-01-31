@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 16:48:12 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/01/30 16:07:40 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/01/31 16:37:25 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ int	get_token_type(char *token)
 		return (TOKEN_REDIRECT_IN);
 	if (ft_strcmp(token, ">") == 0)
 		return (TOKEN_REDIRECT_OUT);
+	if (ft_strcmp(token, ">>") == 0)
+		return (TOKEN_REDIRECT_APPEND);
 	else
 		return (TOKEN_WORD);
 }

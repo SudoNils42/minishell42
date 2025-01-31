@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 19:08:12 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/01/31 14:22:52 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/01/31 15:56:33 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	process_command_line(t_data *data)
 	init_pid_list(data);
 	while (data->current_token < data->token_count)
 	{
-		if (parse_command(data) == 0 && execute_command(data) == 1)
+		if ((parse_command(data) == 0) && (execute_command(data) == 1))
 			return (1);
 		if (data->current_token < data->token_count
 			&& data->tokens[data->current_token].type == TOKEN_PIPE)
@@ -77,8 +77,9 @@ int	execute_command(t_data *data)
 
 	prepare_pipe_connection(data);
 	is_builtin_cmd = is_builtin(data);
-	if (is_builtin_cmd && data->command->fd_out == -1
-		&& data->prev_pipe_read_end == -1)
+	if (is_builtin_cmd && data->command->input_fd == STDIN_FILENO
+		&& data->command->output_fd == STDOUT_FILENO && data->command->fd_out ==
+		-1 && data->prev_pipe_read_end == -1)
 	{
 		exec_builtins(data);
 		return (0);
