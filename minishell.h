@@ -6,12 +6,12 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 16:14:19 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/01/31 16:37:21 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/01/31 16:40:37 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef N_MINISHELL_H
-# define N_MINISHELL_H
+#ifndef MINISHELL_H
+# define MINISHELL_H
 # include "./libft/libft.h"
 # include <curses.h>
 # include <dirent.h>
