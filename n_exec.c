@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 16:44:05 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/01/31 16:44:12 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/02/03 17:20:16 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,16 @@ void	handle_previous_pipe(t_data *data)
 
 int	parse_command(t_data *data)
 {
+	int	redirect_processed;
+
 	init_command(data);
 	handle_previous_pipe(data);
 	while (data->current_token < data->token_count)
 	{
 		if (data->tokens[data->current_token].type == TOKEN_PIPE)
 			break ;
-		else if (handle_redirection(data) == 1)
+		redirect_processed = handle_redirection(data);
+		if (redirect_processed > 0)
 		{
 			if ((data->command->input_fd == -1) || (data->command->output_fd
 					== -1))
@@ -64,8 +67,8 @@ int	parse_command(t_data *data)
 			data->command->args[data->command->args_count]
 				= data->tokens[data->current_token].value;
 			data->command->args_count++;
+			data->current_token++;
 		}
-		data->current_token++;
 	}
 	data->command->args[data->command->args_count] = NULL;
 	check_dollars(data);
@@ -80,8 +83,8 @@ int	execute_command(t_data *data)
 	prepare_pipe_connection(data);
 	is_builtin_cmd = is_builtin(data);
 	if (is_builtin_cmd && data->command->input_fd == STDIN_FILENO
-		&& data->command->output_fd == STDOUT_FILENO && data->command->fd_out ==
-		-1 && data->prev_pipe_read_end == -1)
+		&& data->command->output_fd == STDOUT_FILENO && data->command->fd_out
+		== -1 && data->prev_pipe_read_end == -1)
 	{
 		exec_builtins(data);
 		return (0);

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rabatist <rabatist@student.42.fr>          +#+  +:+       +#+         #
+#    By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 16:03:28 by nbonnet           #+#    #+#              #
-#    Updated: 2025/01/31 14:56:39 by rabatist         ###   ########.fr        #
+#    Updated: 2025/02/03 17:27:26 by nbonnet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,9 +37,10 @@ SRCS = builtins/pwd.c \
        n_pipe_or_word.c \
        n_redirect.c \
        n_token.c \
-	make_env.c \
+	   make_env.c \
        parse.c \
        signals.c \
+	   n_redirect_utils.c
 
 OBJS = $(SRCS:.c=.o)
 

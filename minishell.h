@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 16:43:54 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/01/31 16:44:00 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/02/03 17:26:20 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 # define TOKEN_REDIRECT_IN 3
 # define TOKEN_REDIRECT_OUT 4
 # define TOKEN_REDIRECT_APPEND 5
-# define TOKEN_EOF 6
+# define TOKEN_HEREDOC 6
 
 typedef struct s_token
 {
@@ -111,6 +111,9 @@ int				ft_strcmp(char *s1, char *s2);
 int				redirect_in(t_data *data, int token_count);
 int				redirect_out(t_data *data, int token_count);
 int				handle_redirection(t_data *data);
+
+// redirect_utils.c
+int	process_redirection(int processed, t_data *data);
 
 // pipe_or_word.c
 int				if_word(t_data *data);

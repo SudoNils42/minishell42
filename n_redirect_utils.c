@@ -1,36 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   n_utils.c                                          :+:      :+:    :+:   */
+/*   n_redirect_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/14 15:21:23 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/02/03 17:03:21 by nbonnet          ###   ########.fr       */
+/*   Created: 2025/02/03 17:22:40 by nbonnet           #+#    #+#             */
+/*   Updated: 2025/02/03 17:26:55 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_strcpy(char *dst, char *src)
+int	process_redirection(int processed, t_data *data)
 {
-	int	i;
-
-	i = 0;
-	while (src[i] != '\0')
-	{
-		dst[i] = src[i];
-		i++;
-	}
-	dst[i] = '\0';
-}
-
-int	ft_strcmp(char *s1, char *s2)
-{
-	int	i;
-
-	i = 0;
-	while (s1[i] != '\0' && s2[i] != '\0' && s1[i] == s2[i])
-		i++;
-	return (((unsigned char *)s1)[i] - ((unsigned char *)s2)[i]);
+	if (processed == -1)
+		return (-1);
+	data->current_token += processed;
+	return (processed);
 }

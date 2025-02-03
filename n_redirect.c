@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 19:04:22 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/01/31 16:37:23 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/02/03 17:26:37 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,30 +83,49 @@ int	redirect_append(t_data *data, int token_count)
 	return (0);
 }
 
+int	redirect_heredoc(t_data *data, int token_count)
+{
+	char	*delimiter;
+	int		pipe_fd[2];
+	char	*line;
+
+	if (data->tokens[data->current_token].type != TOKEN_HEREDOC)
+		return (0);
+	if (data->current_token + 1 >= token_count)
+	{
+		printf("minishell: syntax error near unexpected token '<<'\n");
+		return (-1);
+	}
+	delimiter = data->tokens[data->current_token + 1].value;
+	pipe(pipe_fd);
+	while (1)
+	{
+		line = readline("> ");
+		if (ft_strcmp(line, delimiter) == 0)
+			break ;
+		write(pipe_fd[1], line, ft_strlen(line));
+		write(pipe_fd[1], "\n", 1);
+	}
+	close(pipe_fd[1]);
+	data->command->input_fd = pipe_fd[0];
+	return (2);
+}
+
 int	handle_redirection(t_data *data)
 {
 	int	processed;
 
-	if ((processed = redirect_in(data, data->token_count)) != 0)
-	{
-		if (processed == -1)
-			return (-1);
-		data->current_token += processed;
-		return (processed);
-	}
-	if ((processed = redirect_out(data, data->token_count)) != 0)
-	{
-		if (processed == -1)
-			return (-1);
-		data->current_token += processed;
-		return (processed);
-	}
-	if ((processed = redirect_append(data, data->token_count)) != 0)
-	{
-		if (processed == -1)
-			return (-1);
-		data->current_token += processed;
-		return (processed);
-	}
+	processed = redirect_in(data, data->token_count);
+	if (processed != 0)
+		return (process_redirection(processed, data));
+	processed = redirect_out(data, data->token_count);
+	if (processed != 0)
+		return (process_redirection(processed, data));
+	processed = redirect_append(data, data->token_count);
+	if (processed != 0)
+		return (process_redirection(processed, data));
+	processed = redirect_heredoc(data, data->token_count);
+	if (processed != 0)
+		return (process_redirection(processed, data));
 	return (0);
 }
