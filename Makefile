@@ -6,7 +6,7 @@
 #    By: rabatist <rabatist@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 16:03:28 by nbonnet           #+#    #+#              #
-#    Updated: 2025/01/31 14:56:39 by rabatist         ###   ########.fr        #
+#    Updated: 2025/02/04 16:53:24 by rabatist         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,7 @@ SRCS = builtins/pwd.c \
 	make_env.c \
        parse.c \
        signals.c \
+       free.c \
 
 OBJS = $(SRCS:.c=.o)
 

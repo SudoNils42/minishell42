@@ -6,7 +6,7 @@
 /*   By: rabatist <rabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 16:43:54 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/02/04 14:43:53 by rabatist         ###   ########.fr       */
+/*   Updated: 2025/02/04 16:53:59 by rabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@
 # include <termios.h>
 # include <unistd.h>
 # include <linux/limits.h>
+# include <limits.h>
+
 
 # define TOKEN_WORD 1
 # define TOKEN_PIPE 2
@@ -137,7 +139,11 @@ void			ft_echo_print(t_data *data, int i, int line);
 //env.c
 int				ft_env(t_data *data);
 //exit.c
-int				ft_exit(t_data *data);
+void			ft_exit(t_data *data);
+int				ft_exit2(t_data *data);
+int				is_valid_exit_argument(char *str);
+int				ft_ratoi(char *str);
+
 //export1.c
 void			bubble_sort(char **env);
 int				is_valid_var_name(char *var);
@@ -171,5 +177,8 @@ void			sig_int(int signal);
 //make_env.c
 void			make_env(t_data *data, char **env);
 void			make_exp(t_data *data, char **env);
+
+//free.c
+void	free_all_exit(int	exit_code);
 
 #endif

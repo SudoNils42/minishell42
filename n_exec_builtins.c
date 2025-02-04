@@ -6,7 +6,7 @@
 /*   By: rabatist <rabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 15:55:53 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/01/31 17:23:40 by rabatist         ###   ########.fr       */
+/*   Updated: 2025/02/04 15:47:09 by rabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,5 @@ void	exec_builtins(t_data *data)
 	else if (ft_strcmp(data->command->args[0], "unset") == 0)
 		data->exit_status = ft_unset(data);
 	else if (ft_strcmp(data->command->args[0], "exit") == 0)
-		data->exit_status = ft_exit(data);
+		ft_exit(data);
 }

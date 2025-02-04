@@ -6,18 +6,86 @@
 /*   By: rabatist <rabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 14:39:23 by rabatist          #+#    #+#             */
-/*   Updated: 2025/01/31 17:51:31 by rabatist         ###   ########.fr       */
+/*   Updated: 2025/02/04 16:56:30 by rabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	ft_exit(t_data *data)
+void	ft_exit(t_data *data)
 {
-	printf("exit\n");
-	if (!data->command->args[1])
+	int	nbr;
+	
+	if (data->command->args[1])
+		nbr = ft_exit2(data);
+	if (data->command->args[1] && data->command->args[2])
 	{
-		exit (0);
+		printf("bash: exit: too may arguments\n");
+		data->exit_status = 1;
+		return ;
 	}
-	exit (0);
+	if (!data->command->args[1])	
+		free_all_exit (data->exit_status);
+	free_all_exit (nbr);
+}
+int	ft_exit2(t_data *data)
+{
+	int	nbr;
+	
+	if (!is_valid_exit_argument(data->command->args[1]))
+	{
+		printf("bash: exit: %s: numeric argument required\n", data->command->args[1]);
+		data->exit_status = 2;
+		free_all_exit (data->exit_status);
+	}
+	nbr = ft_ratoi(data->command->args[1]);
+	if (nbr == -1)
+	{
+		printf("bash: exit: %s: numeric argument required\n", data->command->args[1]);
+		data->exit_status = 2;
+		free_all_exit(data->exit_status);
+	}
+	return (nbr);
+}
+
+int	is_valid_exit_argument(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (str[i] == '-' || str[i] == '+')
+		str++;
+	while (str[i])
+	{
+		if (!ft_isdigit(str[i]))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+int	ft_ratoi(char *str)
+{
+	int			i;
+	long long	nbr;
+	int			sign;
+	
+	i = 0;
+	nbr = 0;
+	sign = 1;
+	if (str[i] == '-' || str[i] == '+')
+	{
+		if (str[i] == '-')
+			sign = -1;
+		i++;
+	}
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		nbr = nbr * 10 + str[i] - '0';
+		i++;
+	}
+	if (nbr > LONG_MAX)
+		return (-1);
+	nbr *= sign;
+	return ((int)(nbr % 256));
 }
