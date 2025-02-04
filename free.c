@@ -6,7 +6,7 @@
 /*   By: rabatist <rabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 16:06:44 by rabatist          #+#    #+#             */
-/*   Updated: 2025/02/04 16:56:48 by rabatist         ###   ########.fr       */
+/*   Updated: 2025/02/04 17:08:13 by rabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,6 @@
 
 void	free_all_exit(int	exit_code)
 {
+	printf("exit\n");
 	exit(exit_code);
 }
