@@ -6,7 +6,7 @@
 #    By: rabatist <rabatist@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 16:03:28 by nbonnet           #+#    #+#              #
-#    Updated: 2025/02/04 16:53:24 by rabatist         ###   ########.fr        #
+#    Updated: 2025/02/04 17:15:39 by rabatist         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,28 +19,28 @@ CC = cc
 CFLAGS = -Wall -Werror -Wextra -g
 
 SRCS = builtins/pwd.c \
-       builtins/env.c \
-       builtins/echo.c \
-       builtins/cd.c \
-       builtins/cd2.c \
-       builtins/export1.c \
-       builtins/export2.c \
-       builtins/unset.c \
-       builtins/exit.c \
-       n_main.c \
-       n_utils.c \
-       n_exec_utils.c \
-       n_exec.c \
-       n_command_path.c \
-       n_init.c \
-       n_exec_builtins.c \
-       n_pipe_or_word.c \
-       n_redirect.c \
-       n_token.c \
-	make_env.c \
-       parse.c \
-       signals.c \
-       free.c \
+		builtins/env.c \
+		builtins/echo.c \
+		builtins/cd.c \
+		builtins/cd2.c \
+		builtins/export1.c \
+		builtins/export2.c \
+		builtins/unset.c \
+		builtins/exit.c \
+		n_main.c \
+		n_utils.c \
+		n_exec_utils.c \
+		n_exec.c \
+		n_command_path.c \
+		n_init.c \
+		n_exec_builtins.c \
+		n_pipe_or_word.c \
+		n_redirect.c \
+		n_token.c \
+		make_env.c \
+		parse.c \
+		signals.c \
+		free.c \
 
 OBJS = $(SRCS:.c=.o)
 

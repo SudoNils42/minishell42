@@ -6,7 +6,7 @@
 /*   By: rabatist <rabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 14:39:23 by rabatist          #+#    #+#             */
-/*   Updated: 2025/02/04 16:56:30 by rabatist         ###   ########.fr       */
+/*   Updated: 2025/02/04 17:19:24 by rabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_exit(t_data *data)
 {
 	int	nbr;
-	
+
 	if (data->command->args[1])
 		nbr = ft_exit2(data);
 	if (data->command->args[1] && data->command->args[2])
@@ -24,24 +24,27 @@ void	ft_exit(t_data *data)
 		data->exit_status = 1;
 		return ;
 	}
-	if (!data->command->args[1])	
+	if (!data->command->args[1])
 		free_all_exit (data->exit_status);
 	free_all_exit (nbr);
 }
+
 int	ft_exit2(t_data *data)
 {
 	int	nbr;
-	
+
 	if (!is_valid_exit_argument(data->command->args[1]))
 	{
-		printf("bash: exit: %s: numeric argument required\n", data->command->args[1]);
+		printf("bash: exit: %s: numeric argument required\n",
+			data->command->args[1]);
 		data->exit_status = 2;
 		free_all_exit (data->exit_status);
 	}
 	nbr = ft_ratoi(data->command->args[1]);
 	if (nbr == -1)
 	{
-		printf("bash: exit: %s: numeric argument required\n", data->command->args[1]);
+		printf("bash: exit: %s: numeric argument required\n",
+			data->command->args[1]);
 		data->exit_status = 2;
 		free_all_exit(data->exit_status);
 	}
@@ -69,7 +72,7 @@ int	ft_ratoi(char *str)
 	int			i;
 	long long	nbr;
 	int			sign;
-	
+
 	i = 0;
 	nbr = 0;
 	sign = 1;

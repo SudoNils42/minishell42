@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   n_exec.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: rabatist <rabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 16:44:05 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/01/31 16:44:12 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/02/04 17:16:39 by rabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ int	execute_command(t_data *data)
 	prepare_pipe_connection(data);
 	is_builtin_cmd = is_builtin(data);
 	if (is_builtin_cmd && data->command->input_fd == STDIN_FILENO
-		&& data->command->output_fd == STDOUT_FILENO && data->command->fd_out ==
-		-1 && data->prev_pipe_read_end == -1)
+		&& data->command->output_fd == STDOUT_FILENO && data->command->fd_out
+		== -1 && data->prev_pipe_read_end == -1)
 	{
 		exec_builtins(data);
 		return (0);

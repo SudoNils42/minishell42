@@ -6,7 +6,7 @@
 /*   By: rabatist <rabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 17:39:09 by rabatist          #+#    #+#             */
-/*   Updated: 2025/02/04 14:44:29 by rabatist         ###   ########.fr       */
+/*   Updated: 2025/02/04 17:19:32 by rabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void	update_env_with_equal2(t_data *data, char *str, int i)
 	free (data->env);
 	data->env = new_env;
 }
-
 
 void	update_exp_with_equal(t_data *data, char *str)
 {
