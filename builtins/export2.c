@@ -6,7 +6,7 @@
 /*   By: rabatist <rabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 17:39:09 by rabatist          #+#    #+#             */
-/*   Updated: 2025/02/04 17:19:32 by rabatist         ###   ########.fr       */
+/*   Updated: 2025/02/04 18:58:57 by rabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	update_env_with_equal2(t_data *data, char *str, int i)
 
 	j = 0;
 	new_env = malloc(sizeof(char *) * (i + 2));
-	if (new_env)
+	if (!new_env)
 		return ;
 	while (j < i)
 	{
@@ -47,7 +47,7 @@ void	update_env_with_equal2(t_data *data, char *str, int i)
 		j++;
 	}
 	new_env[i] = ft_strdup(str);
-	new_env[1 + 1] = NULL;
+	new_env[i + 1] = NULL;
 	free (data->env);
 	data->env = new_env;
 }
@@ -79,7 +79,7 @@ void	update_exp_with_equal2(t_data *data, char *str, int i)
 
 	j = 0;
 	new_exp = malloc(sizeof(char *) * (i + 2));
-	if (new_exp)
+	if (!new_exp)
 		return ;
 	while (j < i)
 	{
@@ -87,7 +87,7 @@ void	update_exp_with_equal2(t_data *data, char *str, int i)
 		j++;
 	}
 	new_exp[i] = ft_strdup(str);
-	new_exp[1 + 1] = NULL;
+	new_exp[i + 1] = NULL;
 	free (data->exp);
 	data->exp = new_exp;
 }
