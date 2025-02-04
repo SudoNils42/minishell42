@@ -6,7 +6,7 @@
 /*   By: rabatist <rabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 16:11:24 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/01/31 16:34:23 by rabatist         ###   ########.fr       */
+/*   Updated: 2025/02/04 14:22:29 by rabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,5 @@ void	make_exp(t_data *data, char **env)
 		}
 		i++;
 	}
+	data->exp[i] = NULL;
 }
