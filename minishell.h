@@ -6,7 +6,7 @@
 /*   By: rabatist <rabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 16:43:54 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/01/31 17:23:55 by rabatist         ###   ########.fr       */
+/*   Updated: 2025/02/04 14:43:53 by rabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,17 +138,18 @@ void			ft_echo_print(t_data *data, int i, int line);
 int				ft_env(t_data *data);
 //exit.c
 int				ft_exit(t_data *data);
-//export.c
+//export1.c
 void			bubble_sort(char **env);
-void			valid_var_name(t_data *data, int i);
 int				is_valid_var_name(char *var);
 void			export_without_args(t_data *data);
+void			update_exp_without_equal(t_data *data, char *str);
 int				ft_export(t_data *data);
 //export2.c
 void			update_env_with_equal(t_data *data, char *str);
+void			update_env_with_equal2(t_data *data, char *str, int i);
 void			update_exp_with_equal(t_data *data, char *str);
-void			update_exp_without_equal(t_data *data, char *str);
-
+void			update_exp_with_equal2(t_data *data, char *str, int i);
+void			valid_var_name(t_data *data, int i);
 //pwd.c
 int				ft_pwd(void);
 //unset.c

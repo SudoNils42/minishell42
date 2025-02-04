@@ -6,7 +6,7 @@
 /*   By: rabatist <rabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 17:04:34 by rabatist          #+#    #+#             */
-/*   Updated: 2025/02/04 14:19:36 by rabatist         ###   ########.fr       */
+/*   Updated: 2025/02/04 14:46:39 by rabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,10 @@ void	export_without_args(t_data *data)
 	{
 		sign = ft_strchr(data->exp[i], '=');
 		if (sign)
-			printf("declare -x %.*s=\"%s\"[%d]\n",
-				(int)(sign - data->exp[i]), data->exp[i], sign + 1, i);
+			printf("declare -x %.*s=\"%s\"\n",
+				(int)(sign - data->exp[i]), data->exp[i], sign + 1);
 		else
-			printf("declare -x %s[%d]\n", data->exp[i], i);
+			printf("declare -x %s\n", data->exp[i]);
 		i++;
 	}
 }
@@ -97,11 +97,9 @@ void	update_exp_without_equal(t_data *data, char *str)
 	while (++j < i)
 		new_exp[j] = data->exp[j];
 	new_exp[i] = ft_strdup(str);
-	printf("%s\n", new_exp[i]);
 	new_exp[i + 1] = NULL;
 	free (data->exp);
 	data->exp = new_exp;
-	printf("adding [%s] to exp[%d]\n", str, i);
 }
 
 int	ft_export(t_data *data)
