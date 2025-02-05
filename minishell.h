@@ -6,7 +6,7 @@
 /*   By: rabatist <rabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 16:43:54 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/02/04 17:17:02 by rabatist         ###   ########.fr       */
+/*   Updated: 2025/02/05 17:43:25 by rabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,6 +172,7 @@ char			*get_env_value(char *str, t_data *data);
 //signals.c
 void			signals(void);
 void			sig_int(int signal);
+int	g_signals(int new);
 
 //make_env.c
 void			make_env(t_data *data, char **env);

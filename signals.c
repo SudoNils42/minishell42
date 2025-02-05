@@ -6,11 +6,21 @@
 /*   By: rabatist <rabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 14:29:47 by rabatist          #+#    #+#             */
-/*   Updated: 2025/01/31 16:31:55 by rabatist         ###   ########.fr       */
+/*   Updated: 2025/02/05 17:46:51 by rabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	g_signals(int new)
+{
+	static int value;
+
+	if (new == -1)
+		return (value);
+	value = new;
+	return (value);
+}
 
 void	sig_int(int signal)
 {
@@ -18,7 +28,8 @@ void	sig_int(int signal)
 	printf("\n");
 	rl_replace_line("", 0);
 	rl_on_new_line();
-	rl_redisplay();
+	if (!g_signals(-1))
+		rl_redisplay();
 }
 
 void	signals(void)

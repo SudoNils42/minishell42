@@ -6,14 +6,16 @@
 /*   By: rabatist <rabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 16:44:05 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/02/04 17:16:39 by rabatist         ###   ########.fr       */
+/*   Updated: 2025/02/05 17:40:29 by rabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+
 int	process_command_line(t_data *data)
 {
+	g_signals(1);
 	data->pid_index = 0;
 	data->pids = malloc(sizeof(pid_t) * (data->token_count + 1));
 	init_pid_list(data);
@@ -26,6 +28,7 @@ int	process_command_line(t_data *data)
 			data->current_token++;
 	}
 	wait_for_children(data);
+	g_signals(0);
 	return (0);
 }
 
