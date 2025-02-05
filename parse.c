@@ -3,46 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rabatist <rabatist@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 14:33:24 by rabatist          #+#    #+#             */
-/*   Updated: 2025/01/31 16:32:02 by rabatist         ###   ########.fr       */
+/*   Updated: 2025/02/05 18:42:59 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	check_args(char *str)
-{
-	if (!is_quotes_open(str))
-		return (1);
-	return (0);
-}
-
-int	is_quotes_open(char *str)
-{
-	int	in_one;
-	int	in_two;
-	int	i;
-
-	in_one = 0;
-	in_two = 0;
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '\'' && !in_two)
-			in_one = !in_one;
-		else if (str[i] == '\"' && !in_one)
-			in_two = !in_two;
-		i++;
-	}
-	if (in_one || in_two)
-	{
-		printf("Error: quotes bot closed\n");
-		return (1);
-	}
-	return (0);
-}
 
 void	check_dollars(t_data *data)
 {
@@ -71,6 +39,7 @@ void	check_dollars(t_data *data)
 			}
 		}
 	}
+	
 }
 
 void	get_exit_status(t_data *data, int i)

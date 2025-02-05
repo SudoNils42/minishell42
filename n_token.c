@@ -6,24 +6,23 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 16:48:12 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/02/03 16:57:01 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/02/05 17:43:08 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+/* #include "minishell.h"
 
 t_token	*tokenize_input(t_data *data)
 {
-	char	**raw_tokens;
 	t_token	*tokens;
 	int		i;
 
 	data->token_count = 0;
-	raw_tokens = ft_split(data->input, ' ');
-	if (!raw_tokens)
+	// data->raw_tokens = ft_split(data->input, ' ');
+	if (!data->raw_tokens)
 		return (NULL);
 	i = 0;
-	while (raw_tokens[i] != NULL)
+	while (data->raw_tokens[i] != NULL)
 	{
 		data->token_count++;
 		i++;
@@ -34,8 +33,8 @@ t_token	*tokenize_input(t_data *data)
 	i = 0;
 	while (i < data->token_count)
 	{
-		tokens[i].value = ft_strdup(raw_tokens[i]);
-		tokens[i].type = get_token_type(raw_tokens[i]);
+		tokens[i].value = ft_strdup(data->raw_tokens[i]);
+		tokens[i].type = get_token_type(data->raw_tokens[i]);
 		i++;
 	}
 	return (tokens);
@@ -55,4 +54,4 @@ int	get_token_type(char *token)
 		return (TOKEN_HEREDOC);
 	else
 		return (TOKEN_WORD);
-}
+} */

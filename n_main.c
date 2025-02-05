@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   n_main.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rabatist <rabatist@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 17:23:28 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/01/31 15:09:10 by rabatist         ###   ########.fr       */
+/*   Updated: 2025/02/05 18:18:46 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,8 @@ void	start(t_data *data)
 			printf("exit\n");
 			break ;
 		}
-		if (!check_args(data->input))
-			continue ;
 		add_history(data->input);
-		data->tokens = tokenize_input(data);
+		parsing(data);
 		data->current_token = 0;
 		process_command_line(data);
 	}

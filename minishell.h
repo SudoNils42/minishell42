@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 16:43:54 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/02/03 17:26:20 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/02/05 18:03:00 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <curses.h>
 # include <dirent.h>
 # include <fcntl.h>
+# include <linux/limits.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
@@ -29,7 +30,6 @@
 # include <term.h>
 # include <termios.h>
 # include <unistd.h>
-# include <linux/limits.h>
 
 # define TOKEN_WORD 1
 # define TOKEN_PIPE 2
@@ -37,12 +37,14 @@
 # define TOKEN_REDIRECT_OUT 4
 # define TOKEN_REDIRECT_APPEND 5
 # define TOKEN_HEREDOC 6
+# define TOKEN_SQUOTE 7
+# define TOKEN_DQUOTE 8
+
 
 typedef struct s_token
 {
 	char		*value;
 	int			type;
-	int			number;
 }				t_token;
 
 typedef struct s_command
@@ -59,6 +61,7 @@ typedef struct s_data
 {
 	char		**env;
 	char		**exp;
+	char		**raw_tokens;
 	char		*input;
 	int			token_count;
 	int			current_token;
@@ -82,7 +85,7 @@ void			init_pid_list(t_data *data);
 
 // token.c
 t_token			*tokenize_input(t_data *data);
-int				get_token_type(char *token);
+int	get_token_type(char *token);
 
 // exec_utils.c
 void			wait_for_children(t_data *data);
@@ -106,14 +109,15 @@ char			*find_path(t_data *data);
 
 // utils.c
 int				ft_strcmp(char *s1, char *s2);
-
+char	*ft_strndup(const char *s, int n);
+int	ft_isspace(char c);
 // redirect.c
 int				redirect_in(t_data *data, int token_count);
 int				redirect_out(t_data *data, int token_count);
 int				handle_redirection(t_data *data);
 
 // redirect_utils.c
-int	process_redirection(int processed, t_data *data);
+int				process_redirection(int processed, t_data *data);
 
 // pipe_or_word.c
 int				if_word(t_data *data);
@@ -123,55 +127,58 @@ void			exec_builtins(t_data *data);
 int				is_builtin(t_data *data);
 
 // BUILTINS
-//cd.c
+// cd.c
 int				ft_cd(t_data *data);
 void			update_old_pwd_env(t_data *data);
 void			update_old_pwd_env2(t_data *data, char *pwd);
 void			update_old_pwd_exp(t_data *data);
 void			update_old_pwd_exp2(t_data *data, char *pwd);
-//cd2.c
+// cd2.c
 int				ft_cd2(t_data *data);
 void			update_pwd_env(t_data *data);
 void			update_pwd_exp(t_data *data);
 char			*ft_get_home(t_data *data);
-//echo.c
+// echo.c
 int				ft_echo(t_data *data);
 void			ft_echo_print(t_data *data, int i, int line);
-//env.c
+// env.c
 int				ft_env(t_data *data);
-//exit.c
+// exit.c
 int				ft_exit(void);
-//export.c
+// export.c
 void			bubble_sort(char **env);
 void			valid_var_name(t_data *data, int i);
 int				is_valid_var_name(char *var);
 void			export_without_args(t_data *data);
 int				ft_export(t_data *data);
-//export2.c
+// export2.c
 void			update_env_with_equal(t_data *data, char *str);
 void			update_exp_with_equal(t_data *data, char *str);
 void			update_exp_without_equal(t_data *data, char *str);
 
-//pwd.c
+// pwd.c
 int				ft_pwd(void);
-//unset.c
+// unset.c
 int				ft_unset(t_data *data);
 void			unset_var(t_data *data, char *var_name);
 void			unset_var_in_exp(t_data *data, char *var_name);
 
-//parse.c
+// parse.c
 int				check_args(char *str);
 int				is_quotes_open(char *str);
 void			check_dollars(t_data *data);
 void			get_exit_status(t_data *data, int i);
 char			*get_env_value(char *str, t_data *data);
 
-//signals.c
+// signals.c
 void			signals(void);
 void			sig_int(int signal);
 
-//make_env.c
+// make_env.c
 void			make_env(t_data *data, char **env);
 void			make_exp(t_data *data, char **env);
+
+// parsing.c
+void			parsing(t_data *data);
 
 #endif
