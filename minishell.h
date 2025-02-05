@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/31 16:43:54 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/02/05 18:03:00 by nbonnet          ###   ########.fr       */
+/*   Created: 2025/02/05 19:01:27 by nbonnet           #+#    #+#             */
+/*   Updated: 2025/02/05 19:01:30 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@
 # include <term.h>
 # include <termios.h>
 # include <unistd.h>
+# include <linux/limits.h>
+# include <limits.h>
 
 # define TOKEN_WORD 1
 # define TOKEN_PIPE 2
@@ -147,12 +149,13 @@ int				ft_env(t_data *data);
 int				ft_exit(void);
 // export.c
 void			bubble_sort(char **env);
-void			valid_var_name(t_data *data, int i);
 int				is_valid_var_name(char *var);
 void			export_without_args(t_data *data);
+void			update_exp_without_equal(t_data *data, char *str);
 int				ft_export(t_data *data);
 // export2.c
 void			update_env_with_equal(t_data *data, char *str);
+void			update_env_with_equal2(t_data *data, char *str, int i);
 void			update_exp_with_equal(t_data *data, char *str);
 void			update_exp_without_equal(t_data *data, char *str);
 
@@ -173,6 +176,7 @@ char			*get_env_value(char *str, t_data *data);
 // signals.c
 void			signals(void);
 void			sig_int(int signal);
+int	g_signals(int new);
 
 // make_env.c
 void			make_env(t_data *data, char **env);

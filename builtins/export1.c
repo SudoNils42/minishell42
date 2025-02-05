@@ -6,7 +6,11 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 17:04:34 by rabatist          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/02/03 16:46:11 by nbonnet          ###   ########.fr       */
+=======
+/*   Updated: 2025/02/04 14:46:39 by rabatist         ###   ########.fr       */
+>>>>>>> 85e523a7b1f21430bda4ff6a59c06f59d0a0212d
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +32,7 @@ void	bubble_sort(char **env)
 		j = 0;
 		while (j < size - i - 1)
 		{
-			if (ft_strncmp(env[j], env[j + 1], ft_strlen(env[j])) > 0)
+			if (ft_strcmp(env[j], env[j + 1]) > 0)
 			{
 				tmp = env[j];
 				env[j] = env[j + 1];
@@ -77,9 +81,12 @@ void	export_without_args(t_data *data)
 
 void	update_exp_without_equal(t_data *data, char *str)
 {
-	int	i;
+	int		i;
+	char	**new_exp;
+	int		j;
 
 	i = 0;
+	j = -1;
 	while (data->exp[i])
 	{
 		if (!ft_strncmp(data->exp[i], str, ft_strlen(str))
@@ -88,8 +95,15 @@ void	update_exp_without_equal(t_data *data, char *str)
 			return ;
 		i++;
 	}
-	data->exp[i] = ft_strdup(str);
-	data->exp[i + 1] = NULL;
+	new_exp = malloc(sizeof(char *) * (i + 2));
+	if (!new_exp)
+		return ;
+	while (++j < i)
+		new_exp[j] = data->exp[j];
+	new_exp[i] = ft_strdup(str);
+	new_exp[i + 1] = NULL;
+	free (data->exp);
+	data->exp = new_exp;
 }
 
 int	ft_export(t_data *data)
@@ -108,7 +122,7 @@ int	ft_export(t_data *data)
 			valid_var_name(data, i);
 		else
 		{
-			printf("export: `%s': not a valid identifier\n",
+			printf("export: %s': not a valid identifier\n",
 				data->command->args[i]);
 			return (1);
 		}

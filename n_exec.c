@@ -5,15 +5,17 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/31 16:44:05 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/02/03 17:20:16 by nbonnet          ###   ########.fr       */
+/*   Created: 2025/02/05 18:56:58 by nbonnet           #+#    #+#             */
+/*   Updated: 2025/02/05 18:57:02 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+
 int	process_command_line(t_data *data)
 {
+	g_signals(1);
 	data->pid_index = 0;
 	data->pids = malloc(sizeof(pid_t) * (data->token_count + 1));
 	init_pid_list(data);
@@ -26,6 +28,7 @@ int	process_command_line(t_data *data)
 			data->current_token++;
 	}
 	wait_for_children(data);
+	g_signals(0);
 	return (0);
 }
 
