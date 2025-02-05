@@ -5,12 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/01/13 16:03:28 by nbonnet           #+#    #+#              #
-<<<<<<< HEAD
-#    Updated: 2025/02/05 16:25:13 by nbonnet          ###   ########.fr        #
-=======
-#    Updated: 2025/02/04 17:15:39 by rabatist         ###   ########.fr        #
->>>>>>> 85e523a7b1f21430bda4ff6a59c06f59d0a0212d
+#    Created: 2025/02/05 19:02:17 by nbonnet           #+#    #+#              #
+#    Updated: 2025/02/05 19:10:01 by nbonnet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,13 +36,12 @@ SRCS = builtins/pwd.c \
        n_exec_builtins.c \
        n_pipe_or_word.c \
        n_redirect.c \
-       n_token.c \
 	   make_env.c \
        parse.c \
        signals.c \
 	   n_redirect_utils.c \
 	   n_parsing.c \
-	   free.c \
+	   free.c
 
 OBJS = $(SRCS:.c=.o)
 
