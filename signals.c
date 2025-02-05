@@ -6,7 +6,7 @@
 /*   By: rabatist <rabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 14:29:47 by rabatist          #+#    #+#             */
-/*   Updated: 2025/02/05 17:46:51 by rabatist         ###   ########.fr       */
+/*   Updated: 2025/02/05 18:14:55 by rabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	g_signals(int new)
 
 void	sig_int(int signal)
 {
+	
 	(void)signal;
 	printf("\n");
 	rl_replace_line("", 0);
