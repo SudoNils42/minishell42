@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 15:21:23 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/02/05 18:17:30 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/02/06 00:39:32 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	ft_strcmp(char *s1, char *s2)
 		i++;
 	return (((unsigned char *)s1)[i] - ((unsigned char *)s2)[i]);
 }
+
 int	ft_strnlen(const char *s, int maxlen)
 {
 	int	len;
@@ -57,6 +58,7 @@ char	*ft_strndup(const char *s, int n)
 	dup[len] = '\0';
 	return (dup);
 }
+
 int	ft_isspace(char c)
 {
 	if (c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f'

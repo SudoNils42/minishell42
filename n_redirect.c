@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 19:04:22 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/02/05 18:41:18 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/02/06 00:39:22 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,6 @@ int	redirect_heredoc(t_data *data, int token_count)
 	while (1)
 	{
 		line = readline("> ");
-		check_dollars(data);
 		if (ft_strcmp(line, delimiter) == 0)
 			break ;
 		write(pipe_fd[1], line, ft_strlen(line));

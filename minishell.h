@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 19:03:41 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/02/05 19:12:43 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/02/06 00:44:03 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,10 +163,8 @@ int				ft_unset(t_data *data);
 void			unset_var_in_env(t_data *data, char *var_name);
 void			unset_var_in_exp(t_data *data, char *var_name);
 
-// parse.c
-void			check_dollars(t_data *data);
-void			get_exit_status(t_data *data, int i);
-char			*get_env_value(char *str, t_data *data);
+// expand_variables.c
+char	*expand_variables(char *str, t_data *data);
 
 // signals.c
 void			signals(void);

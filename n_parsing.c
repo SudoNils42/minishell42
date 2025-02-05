@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 16:24:57 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/02/05 18:18:38 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/02/06 00:41:52 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,15 @@ void	add_token(t_data *data, char *start, int len, int type)
 	t_token	new_token;
 	t_token	*new_tokens;
 	int		i;
+	char	*expanded;
 
 	new_token.value = ft_strndup(start, len);
+	if (type != TOKEN_SQUOTE)
+	{
+		expanded = expand_variables(new_token.value, data);
+		free(new_token.value);
+		new_token.value = expanded;
+	}
 	new_token.type = type;
 	new_tokens = malloc(sizeof(t_token) * (data->token_count + 1));
 	i = -1;
