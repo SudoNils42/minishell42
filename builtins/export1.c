@@ -6,7 +6,7 @@
 /*   By: rabatist <rabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 19:06:56 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/02/06 19:18:11 by rabatist         ###   ########.fr       */
+/*   Updated: 2025/02/06 20:06:29 by rabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ int	ft_export(t_data *data)
 			valid_var_name(data, i);
 		else
 		{
-			write (2, "export: ", 8);
+			write (2, "export: `", 9);
 			write (2, data->command->args[1], ft_strlen(data->command->args[1]));
 			write (2, "': not a valid identifier\n", 26);
 			return (1);
