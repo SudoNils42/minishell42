@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: rabatist <rabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 19:03:41 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/02/06 01:24:07 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/02/06 19:50:06 by rabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,8 @@ void			update_old_pwd_env2(t_data *data, char *pwd);
 void			update_old_pwd_exp(t_data *data);
 void			update_old_pwd_exp2(t_data *data, char *pwd);
 // cd2.c
-int				ft_cd2(t_data *data);
+void			ft_cd2(t_data *data);
+int				ft_cd3(t_data *data);
 void			update_pwd_env(t_data *data);
 void			update_pwd_exp(t_data *data);
 char			*ft_get_home(t_data *data);

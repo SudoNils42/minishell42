@@ -6,7 +6,7 @@
 /*   By: rabatist <rabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 17:34:50 by rabatist          #+#    #+#             */
-/*   Updated: 2025/01/31 16:03:26 by rabatist         ###   ########.fr       */
+/*   Updated: 2025/02/06 19:49:52 by rabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	update_pwd_env(t_data *data)
 			i++;
 		}
 	}
+	update_pwd_exp(data);
 }
 
 void	update_pwd_exp(t_data *data)
@@ -62,22 +63,47 @@ void	update_pwd_exp(t_data *data)
 	}
 }
 
-int	ft_cd2(t_data *data)
+void	ft_cd2(t_data *data)
+{
+	char	*home;
+	
+	home = ft_get_home(data);
+	if (!home)
+	{
+		write (2, "cd: HOME not set\n", 17);
+	}
+	else if (chdir(home)!= 0)
+	{
+		write (2, "cd: ", 4);
+		write (2, home, ft_strlen(home));
+		write (2, ": No such file or directory\n", 28);
+	}
+}
+
+int	ft_cd3(t_data *data)
 {
 	struct stat	statbuf;
 
 	if (stat(data->command->args[1], &statbuf) == -1)
 	{
-		printf("cd: %s: No such file or directory\n", data->command->args[1]);
+		perror ("cd");
 		return (1);
 	}
 	else if (!(statbuf.st_mode & S_IFDIR))
 	{
-		printf("cd: %s: Not a directory\n", data->command->args[1]);
+		write (2, "cd: ", 4);
+		write (2, data->command->args[1], ft_strlen(data->command->args[1]));
+		write (2, ": Not a directory\n", 18);
 		return (1);
 	}
 	else
-		chdir(data->command->args[1]);
+	{
+		if (chdir(data->command->args[1]) != 0)
+		{
+			perror ("cd");
+			return (1);
+		}
+	}
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: rabatist <rabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 14:39:23 by rabatist          #+#    #+#             */
-/*   Updated: 2025/02/04 17:19:24 by rabatist         ###   ########.fr       */
+/*   Updated: 2025/02/06 19:15:41 by rabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_exit(t_data *data)
 		nbr = ft_exit2(data);
 	if (data->command->args[1] && data->command->args[2])
 	{
-		printf("bash: exit: too may arguments\n");
+		write (2, "bash: exit: too may arguments\n", 30);
 		data->exit_status = 1;
 		return ;
 	}
@@ -35,16 +35,18 @@ int	ft_exit2(t_data *data)
 
 	if (!is_valid_exit_argument(data->command->args[1]))
 	{
-		printf("bash: exit: %s: numeric argument required\n",
-			data->command->args[1]);
+		write (2, "bash: exit: ", 12);
+		write (2, data->command->args[1], ft_strlen(data->command->args[1]));
+		write (2, ": numeric argument required\n", 28);
 		data->exit_status = 2;
 		free_all_exit (data->exit_status);
 	}
 	nbr = ft_ratoi(data->command->args[1]);
 	if (nbr == -1)
 	{
-		printf("bash: exit: %s: numeric argument required\n",
-			data->command->args[1]);
+		write (2, "bash: exit: ", 12);
+		write (2, data->command->args[1], ft_strlen(data->command->args[1]));
+		write (2, ": numeric argument required\n", 28);
 		data->exit_status = 2;
 		free_all_exit(data->exit_status);
 	}
