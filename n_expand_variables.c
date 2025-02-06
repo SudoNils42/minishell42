@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 14:33:24 by rabatist          #+#    #+#             */
-/*   Updated: 2025/02/06 00:43:27 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/02/06 15:31:49 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,16 @@ char	*expand_variables(char *str, t_data *data)
 			free(exit_str);
 			i += 2;
 		}
+		else if (str[i] == '$' && (ft_isspace(str[i + 1]) == 1 || str[i
+				+ 1] == '\0'))
+		{
+			buf[0] = str[i];
+			buf[1] = '\0';
+			tmp = ft_strjoin(result, buf);
+			free(result);
+			result = tmp;
+			i++;
+		}
 		else if (str[i] == '$')
 		{
 			i++;
@@ -93,4 +103,3 @@ char	*expand_variables(char *str, t_data *data)
 	}
 	return (result);
 }
-

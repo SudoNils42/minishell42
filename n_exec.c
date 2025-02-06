@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:56:58 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/02/06 00:11:01 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/02/06 17:00:30 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ int	parse_command(t_data *data)
 		}
 	}
 	data->command->args[data->command->args_count] = NULL;
-	// check_dollars(data);
 	return (data->command->args_count == 0);
 }
 
