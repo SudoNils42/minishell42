@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 19:04:22 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/02/06 01:24:10 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/02/06 19:36:29 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,17 @@ int	redirect_in(t_data *data, int token_count)
 	{
 		if (data->current_token + 1 >= token_count)
 		{
-			printf("minishell: syntax error near unexpected token '<'\n");
+			ft_putstr_fd("minishell: syntax error near unexpected token '<'\n",
+				2);
 			return (-1);
 		}
 		filename = data->tokens[data->current_token + 1].value;
 		data->command->input_fd = open(filename, O_RDONLY);
 		if (data->command->input_fd == -1)
 		{
-			printf("minishell: %s: No such file or directory\n", filename);
+			ft_putstr_fd("minishell: ", 2);
+			ft_putstr_fd(filename, 2);
+			ft_putstr_fd(": No such file or directory\n", 2);
 			return (-1);
 		}
 		return (2);
@@ -43,7 +46,8 @@ int	redirect_out(t_data *data, int token_count)
 	{
 		if (data->current_token + 1 >= token_count)
 		{
-			printf("minishell: syntax error near unexpected token '>'\n");
+			ft_putstr_fd("minishell: syntax error near unexpected token '>'\n",
+				2);
 			return (-1);
 		}
 		filename = data->tokens[data->current_token + 1].value;
@@ -51,7 +55,9 @@ int	redirect_out(t_data *data, int token_count)
 				0644);
 		if (data->command->output_fd == -1)
 		{
-			printf("minishell: %s: Cannot create file\n", filename);
+			ft_putstr_fd("minishell: ", 2);
+			ft_putstr_fd(filename, 2);
+			ft_putstr_fd(": Cannot create file\n", 2);
 			return (-1);
 		}
 		return (2);
@@ -67,7 +73,8 @@ int	redirect_append(t_data *data, int token_count)
 	{
 		if (data->current_token + 1 >= token_count)
 		{
-			printf("minishell: syntax error near unexpected token '>>'\n");
+			ft_putstr_fd("minishell: syntax error near unexpected token '>>'\n",
+				2);
 			return (-1);
 		}
 		filename = data->tokens[data->current_token + 1].value;
@@ -75,7 +82,9 @@ int	redirect_append(t_data *data, int token_count)
 				0644);
 		if (data->command->output_fd == -1)
 		{
-			printf("minishell: %s: Cannot open file\n", filename);
+			ft_putstr_fd("minishell: ", 2);
+			ft_putstr_fd(filename, 2);
+			ft_putstr_fd(": Cannot open file\n", 2);
 			return (-1);
 		}
 		return (2);
@@ -93,7 +102,7 @@ int	redirect_heredoc(t_data *data, int token_count)
 		return (0);
 	if (data->current_token + 1 >= token_count)
 	{
-		printf("minishell: syntax error near unexpected token '<<'\n");
+		ft_putstr_fd("minishell: syntax error near unexpected token '<<'\n", 2);
 		return (-1);
 	}
 	delimiter = data->tokens[data->current_token + 1].value;

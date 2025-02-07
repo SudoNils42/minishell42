@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 19:03:41 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/02/06 01:24:07 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/02/07 16:48:29 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ typedef struct s_command
 	int			output_fd;
 	int			fd_in;
 	int			fd_out;
+	int			error_pipe_read;
+	int			error_pipe_write;
 }				t_command;
 
 typedef struct s_data
@@ -64,6 +66,7 @@ typedef struct s_data
 	char		**raw_tokens;
 	char		*input;
 	int			token_count;
+	int			flag_error;
 	int			current_token;
 	int			total_pipes;
 	int			prev_pipe_read_end;
@@ -181,4 +184,6 @@ void			parsing(t_data *data);
 // free.c
 void			free_all_exit(int exit_code);
 
+
+int	variable_globale(int error);
 #endif
