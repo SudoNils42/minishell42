@@ -6,7 +6,7 @@
 /*   By: rabatist <rabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 16:25:34 by rabatist          #+#    #+#             */
-/*   Updated: 2025/01/31 15:31:02 by rabatist         ###   ########.fr       */
+/*   Updated: 2025/02/06 19:49:45 by rabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,22 @@
 
 int	ft_cd(t_data *data)
 {
-	char	*home;
-
+	if (data->command->args[2])
+	{
+		write (2, "cd: too many arguments\n", 23);
+		return (1);
+	}
 	if (!data->command->args[1])
 	{
-		home = ft_get_home(data);
-		if (!home)
-		{
-			printf("cd: HOME not set\n");
-			return (1);
-		}
-		chdir(home);
+		ft_cd3(data);
+		return (1);
 	}
 	else
 	{
-		if (ft_cd2(data))
+		if (ft_cd3(data))
 			return (1);
 	}
 	update_old_pwd_env(data);
-	update_old_pwd_exp(data);
-	update_pwd_env(data);
-	update_pwd_exp(data);
 	return (0);
 }
 
@@ -78,6 +73,7 @@ void	update_old_pwd_env2(t_data *data, char *pwd)
 		}
 		i++;
 	}
+	update_old_pwd_exp(data);
 }
 
 void	update_old_pwd_exp(t_data *data)
@@ -120,4 +116,5 @@ void	update_old_pwd_exp2(t_data *data, char *pwd)
 		}
 		i++;
 	}
+	update_pwd_env(data);
 }

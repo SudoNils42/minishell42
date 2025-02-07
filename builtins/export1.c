@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/05 19:06:56 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/02/06 17:35:10 by nbonnet          ###   ########.fr       */
+/*   Created: 2025/02/07 17:19:08 by nbonnet           #+#    #+#             */
+/*   Updated: 2025/02/07 17:19:11 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,8 +118,9 @@ int	ft_export(t_data *data)
 			valid_var_name(data, i);
 		else
 		{
-			printf("export: %s': not a valid identifier\n",
-				data->command->args[i]);
+			write (2, "export: `", 9);
+			write (2, data->command->args[1], ft_strlen(data->command->args[1]));
+			write (2, "': not a valid identifier\n", 26);
 			return (1);
 		}
 	}

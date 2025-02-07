@@ -6,7 +6,7 @@
 /*   By: rabatist <rabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 17:39:09 by rabatist          #+#    #+#             */
-/*   Updated: 2025/02/04 18:58:57 by rabatist         ###   ########.fr       */
+/*   Updated: 2025/02/06 19:31:13 by rabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ void	update_env_with_equal(t_data *data, char *str)
 	len = ft_strchr(str, '=') - str;
 	while (data->env[++i])
 	{
-		if (!ft_strncmp(data->exp[i], str, len)
-			&& (data->exp[i][len] == '=' || data->exp[i][len] == '\0'))
+		if (!ft_strncmp(data->env[i], str, len)
+			&& (data->env[i][len] == '=' || data->env[i][len] == '\0'))
 		{
-			free (data->exp[i]);
-			data->exp[i] = ft_strdup(str);
+			free (data->env[i]);
+			data->env[i] = ft_strdup(str);
 			return ;
 		}
 	}
