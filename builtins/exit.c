@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rabatist <rabatist@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 14:39:23 by rabatist          #+#    #+#             */
-/*   Updated: 2025/02/06 19:15:41 by rabatist         ###   ########.fr       */
+/*   Updated: 2025/02/07 17:56:06 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_exit(t_data *data)
 		nbr = ft_exit2(data);
 	if (data->command->args[1] && data->command->args[2])
 	{
-		write (2, "bash: exit: too may arguments\n", 30);
+		write (2, "bash: exit: too many arguments\n", 30);
 		data->exit_status = 1;
 		return ;
 	}

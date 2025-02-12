@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:56:58 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/02/07 16:46:50 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/02/07 17:50:37 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,8 @@ int	execute_command(t_data *data)
 		cmd_path = find_command_path(data->command->args[0], data);
 		if (!cmd_path)
 		{
-			ft_putstr_fd(data->command->args[0], 2);
-			ft_putstr_fd(": command not found\n", 2);
+			ft_putstr_fd(data->command->args[0], 1);
+			ft_putstr_fd(": command not found\n", 1);
 			return (1);
 		}
 	}

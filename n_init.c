@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 14:10:21 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/02/07 16:50:00 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/02/12 19:47:24 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	init_data(t_data *data, char **env)
 	data->pid_index = 0;
 	data->exit_status = 0;
 	data->flag_error = 0;
+	data->start = 0;
 }
 
 void	init_command(t_data *data)

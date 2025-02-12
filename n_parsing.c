@@ -6,21 +6,22 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 16:24:57 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/02/06 17:04:47 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/02/12 20:47:43 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+// void	print_tokens(t_data *data)
+// {
+// 	int	i;
 
-int	is_operator(char c)
-{
-	return (c == '|' || c == '<' || c == '>');
-}
-
-int	is_two_char_op(char c1, char c2)
-{
-	return ((c1 == '>' && c2 == '>') || (c1 == '<' && c2 == '<'));
-}
+// 	printf("Tokens:\n");
+// 	for (i = 0; i < data->token_count; i++)
+// 	{
+// 		printf("  [%d] Type: %d, Value: %s\n",
+// 			i, data->tokens[i].type, data->tokens[i].value);
+// 	}
+// }
 
 void	add_token(t_data *data, char *start, int len, int type)
 {
@@ -45,6 +46,8 @@ void	add_token(t_data *data, char *start, int len, int type)
 	data->token_count++;
 	free(data->tokens);
 	data->tokens = new_tokens;
+	// printf("Added token: Type = %d, Value = %s\n", new_token.type, new_token.value);
+	// print_tokens(data);
 }
 
 void	handle_quotes(t_data *data, int *i, char quote_type)
@@ -77,7 +80,8 @@ void	handle_operator(t_data *data, int *i)
 
 	op_len = 1;
 	type = TOKEN_WORD;
-	if (is_two_char_op(data->input[*i], data->input[*i + 1]))
+	if ((data->input[*i] == '>' && data->input[*i + 1] == '>')
+		|| (data->input[*i] == '<' && data->input[*i + 1] == '<'))
 	{
 		op_len = 2;
 		if (data->input[*i] == '>')
@@ -98,16 +102,42 @@ void	handle_operator(t_data *data, int *i)
 void	parse_word(t_data *data, int *i)
 {
 	int	start;
+	int second_start;
+	int end;
+	int	len;
+	char	*first_half_token;
+	char	*second_half_token;
+	char	*complete_token;
 
 	start = *i;
-	while (data->input[*i] && !ft_isspace(data->input[*i])
-		&& !is_operator(data->input[*i]))
+	while (data->input[*i] && data->input[*i] != '\'' && data->input[*i] != '"'
+		&& data->input[*i] != ' ' && data->input[*i] != '|'
+		&& data->input[*i] != '<' && data->input[*i] != '>')
 	{
-		if (data->input[*i] == '\'' || data->input[*i] == '"')
-			break ;
 		(*i)++;
 	}
-	add_token(data, &data->input[start], *i - start, TOKEN_WORD);
+	if (data->input[*i] == '\'' || data->input[*i] == '"')
+	{
+		(*i)++;
+		second_start = *i;
+		while (data->input[*i] && data->input[*i] != '\'' && data->input[*i] != '"')
+			(*i)++;
+		end = (*i) - 1;
+		first_half_token = ft_strndup(&data->input[start], second_start - start - 1);
+		second_half_token = ft_strndup(&data->input[second_start], end - second_start + 1);
+		complete_token = ft_strjoin(first_half_token, second_half_token);
+		len = ft_strlen(complete_token);
+		if (!data->input[*i])
+		{
+			ft_putstr_fd("minishell: unclosed quote\n", 2);
+			data->exit_status = 1;
+			return ;
+		}
+		add_token(data, complete_token, len, TOKEN_WORD);
+		(*i)++;
+	}
+	else
+		add_token(data, &data->input[start], *i - start, TOKEN_WORD);
 }
 
 void	parsing(t_data *data)
@@ -125,7 +155,8 @@ void	parsing(t_data *data)
 			break ;
 		if (data->input[i] == '\'' || data->input[i] == '"')
 			handle_quotes(data, &i, data->input[i]);
-		else if (is_operator(data->input[i]))
+		else if (data->input[i] == '|' || data->input[i] == '<'
+			|| data->input[i] == '>')
 			handle_operator(data, &i);
 		else
 			parse_word(data, &i);

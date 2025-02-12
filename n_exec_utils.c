@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 17:51:27 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/02/07 16:50:40 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/02/12 15:39:27 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,11 @@ void	run_child_process(t_data *data, char *cmd_path, int is_builtin)
 		dup2(data->command->fd_out, STDOUT_FILENO);
 	if (data->prev_pipe_read_end != -1)
 		close(data->prev_pipe_read_end);
-	if (data->command->error_pipe_write != -1)
-	{
-		dup2(data->command->error_pipe_write, STDERR_FILENO);
-		close(data->command->error_pipe_write);
-	}
-		if (is_builtin)
-			exec_builtins(data);
-		else
-			execve(cmd_path, data->command->args, data->env);
-		exit(1);
+	if (is_builtin)
+		exec_builtins(data);
+	else
+		execve(cmd_path, data->command->args, data->env);
+	exit(1);
 }
 
 	void cleanup_parent(t_data * data)

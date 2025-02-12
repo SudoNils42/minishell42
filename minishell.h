@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:18:44 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/02/07 17:47:55 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/02/12 19:43:11 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ typedef struct s_data
 	char		**raw_tokens;
 	char		*input;
 	int			token_count;
+	int			start;
 	int			flag_error;
 	int			current_token;
 	int			total_pipes;
