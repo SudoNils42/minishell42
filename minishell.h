@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:18:44 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/02/12 19:43:11 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/02/13 00:11:30 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,20 @@
 # define TOKEN_HEREDOC 6
 # define TOKEN_SQUOTE 7
 # define TOKEN_DQUOTE 8
+# define TOKEN_NO_QUOTE 9
+
+
+typedef struct s_sub_token
+{
+	char	*content;
+	int		type;
+}	t_sub_token;
 
 typedef struct s_token
 {
 	char		*value;
 	int			type;
+	t_sub_token	**sub_token;
 }				t_token;
 
 typedef struct s_command

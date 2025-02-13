@@ -6,22 +6,11 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 16:24:57 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/02/12 20:47:43 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/02/13 01:17:15 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-// void	print_tokens(t_data *data)
-// {
-// 	int	i;
-
-// 	printf("Tokens:\n");
-// 	for (i = 0; i < data->token_count; i++)
-// 	{
-// 		printf("  [%d] Type: %d, Value: %s\n",
-// 			i, data->tokens[i].type, data->tokens[i].value);
-// 	}
-// }
 
 void	add_token(t_data *data, char *start, int len, int type)
 {
@@ -46,31 +35,6 @@ void	add_token(t_data *data, char *start, int len, int type)
 	data->token_count++;
 	free(data->tokens);
 	data->tokens = new_tokens;
-	// printf("Added token: Type = %d, Value = %s\n", new_token.type, new_token.value);
-	// print_tokens(data);
-}
-
-void	handle_quotes(t_data *data, int *i, char quote_type)
-{
-	int	start;
-	int	type;
-
-	start = *i + 1;
-	(*i)++;
-	while (data->input[*i] && data->input[*i] != quote_type)
-		(*i)++;
-	if (!data->input[*i])
-	{
-		ft_putstr_fd("minishell: unclosed quote\n", 2);
-		data->exit_status = 1;
-		return ;
-	}
-	if (quote_type == '\'')
-		type = TOKEN_SQUOTE;
-	else
-		type = TOKEN_DQUOTE;
-	add_token(data, data->input + start, *i - start, type);
-	(*i)++;
 }
 
 void	handle_operator(t_data *data, int *i)
@@ -99,45 +63,163 @@ void	handle_operator(t_data *data, int *i)
 	*i += op_len;
 }
 
-void	parse_word(t_data *data, int *i)
+void    analyse_quotes(char *content, t_token *token)
 {
-	int	start;
-	int second_start;
-	int end;
-	int	len;
-	char	*first_half_token;
-	char	*second_half_token;
-	char	*complete_token;
+    int i;
+    int count;
+    int k;
+    int start;
 
-	start = *i;
-	while (data->input[*i] && data->input[*i] != '\'' && data->input[*i] != '"'
-		&& data->input[*i] != ' ' && data->input[*i] != '|'
-		&& data->input[*i] != '<' && data->input[*i] != '>')
-	{
-		(*i)++;
-	}
-	if (data->input[*i] == '\'' || data->input[*i] == '"')
-	{
-		(*i)++;
-		second_start = *i;
-		while (data->input[*i] && data->input[*i] != '\'' && data->input[*i] != '"')
-			(*i)++;
-		end = (*i) - 1;
-		first_half_token = ft_strndup(&data->input[start], second_start - start - 1);
-		second_half_token = ft_strndup(&data->input[second_start], end - second_start + 1);
-		complete_token = ft_strjoin(first_half_token, second_half_token);
-		len = ft_strlen(complete_token);
-		if (!data->input[*i])
-		{
-			ft_putstr_fd("minishell: unclosed quote\n", 2);
-			data->exit_status = 1;
-			return ;
-		}
-		add_token(data, complete_token, len, TOKEN_WORD);
-		(*i)++;
-	}
-	else
-		add_token(data, &data->input[start], *i - start, TOKEN_WORD);
+    count = 0;
+    i = 0;
+    while (content[i])
+    {
+        if (content[i] == '\'' || content[i] == '"')
+        {
+            char quote_type = content[i++];
+            while (content[i] && content[i] != quote_type)
+                i++;
+            if (content[i] == quote_type)
+                i++;
+            count++;
+        }
+        else
+        {
+            start = i;
+            while (content[i] && content[i] != '\'' && content[i] != '"'
+                   && content[i] != ' ' && content[i] != '|'
+                   && content[i] != '<' && content[i] != '>')
+                i++;
+            if (i > start)
+                count++;
+        }
+    }
+    token->sub_token = malloc(sizeof(t_sub_token *) * (count + 1));
+    if (!token->sub_token)
+        return;
+    token->sub_token[count] = NULL;
+    i = 0;
+    k = 0;
+    while (content[i] && k < count)
+    {
+        if (content[i] == '\'')
+        {
+            t_sub_token *sub = malloc(sizeof(t_sub_token));
+            if (!sub)
+                return;
+            sub->type = TOKEN_SQUOTE;
+            i++;
+            start = i;
+            while (content[i] && content[i] != '\'')
+                i++;
+            sub->content = ft_substr(content, start, i - start);
+            if (content[i] == '\'')
+                i++;
+            token->sub_token[k++] = sub;
+        }
+        else if (content[i] == '"')
+        {
+            t_sub_token *sub = malloc(sizeof(t_sub_token));
+            if (!sub)
+                return;
+            sub->type = TOKEN_DQUOTE;
+            i++;
+            start = i;
+            while (content[i] && content[i] != '"')
+                i++;
+            sub->content = ft_substr(content, start, i - start);
+            if (content[i] == '"')
+                i++;
+            token->sub_token[k++] = sub;
+        }
+        else
+        {
+            start = i;
+            while (content[i] && content[i] != '\'' && content[i] != '"'
+                   && content[i] != ' ' && content[i] != '|'
+                   && content[i] != '<' && content[i] != '>')
+                i++;
+            if (i > start)
+            {
+                t_sub_token *sub = malloc(sizeof(t_sub_token));
+                if (!sub)
+                    return;
+                sub->type = TOKEN_NO_QUOTE;
+                sub->content = ft_substr(content, start, i - start);
+                token->sub_token[k++] = sub;
+            }
+        }
+    }
+}
+
+void    parse_word(t_data *data, int *i)
+{
+    t_token *token;
+    int     start;
+    char    *content;
+    char    quote_type;
+    int     j;
+    char    *tmp;
+
+    start = *i;
+    token = malloc(sizeof(t_token));
+    if (!token)
+        return;
+
+    while (data->input[*i] && data->input[*i] != ' ' && data->input[*i] != '|'
+           && data->input[*i] != '<' && data->input[*i] != '>')
+    {
+        if (data->input[*i] == '\'' || data->input[*i] == '"')
+        {
+            quote_type = data->input[*i];
+            (*i)++;
+            while (data->input[*i] && data->input[*i] != quote_type)
+                (*i)++;
+            if (data->input[*i] != quote_type)
+            {
+                ft_putstr_fd("minishell: unclosed quote\n", 2);
+                data->exit_status = 1;
+                free(token);
+                return;
+            }
+            (*i)++;
+        }
+        else
+            (*i)++;
+    }
+
+    content = ft_substr(data->input, start, *i - start);
+    token->value = content;
+    token->type = TOKEN_WORD;
+    token->sub_token = NULL;
+
+    analyse_quotes(content, token);
+
+    tmp = ft_strdup("");
+    j = 0;
+    while (token->sub_token && token->sub_token[j])
+    {
+        char *new_tmp = ft_strjoin(tmp, token->sub_token[j]->content);
+        free(tmp);
+        tmp = new_tmp;
+        j++;
+    }
+
+    free(token->value);
+    token->value = tmp;
+    add_token(data, token->value, ft_strlen(token->value), TOKEN_WORD);
+    j = 0;
+    if (token->sub_token)
+    {
+        while (token->sub_token[j])
+        {
+            free(token->sub_token[j]->content);
+            free(token->sub_token[j]);
+            j++;
+        }
+        free(token->sub_token);
+    }
+    free(token);
 }
 
 void	parsing(t_data *data)
@@ -153,8 +235,6 @@ void	parsing(t_data *data)
 			i++;
 		if (!data->input[i])
 			break ;
-		if (data->input[i] == '\'' || data->input[i] == '"')
-			handle_quotes(data, &i, data->input[i]);
 		else if (data->input[i] == '|' || data->input[i] == '<'
 			|| data->input[i] == '>')
 			handle_operator(data, &i);
