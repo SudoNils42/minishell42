@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 17:51:27 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/02/12 15:39:27 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/02/13 12:53:58 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,46 +39,46 @@ void	run_child_process(t_data *data, char *cmd_path, int is_builtin)
 	exit(1);
 }
 
-	void cleanup_parent(t_data * data)
+void	cleanup_parent(t_data *data)
+{
+	if (data->command->fd_out != -1)
+		close(data->command->fd_out);
+	if (data->command->input_fd != STDIN_FILENO)
+		close(data->command->input_fd);
+	if (data->command->output_fd != STDOUT_FILENO)
+		close(data->command->output_fd);
+	if (data->command->error_pipe_write != -1)
+		close(data->command->error_pipe_write);
+}
+
+void	setup_pipe(t_data *data, int pipe_fd[2])
+{
+	int	error_pipe[2];
+
+	if (pipe(pipe_fd) == -1)
 	{
-		if (data->command->fd_out != -1)
-			close(data->command->fd_out);
-		if (data->command->input_fd != STDIN_FILENO)
-			close(data->command->input_fd);
-		if (data->command->output_fd != STDOUT_FILENO)
-			close(data->command->output_fd);
-		if (data->command->error_pipe_write != -1)
-			close(data->command->error_pipe_write);
+		perror("pipe");
+		exit(1);
 	}
-
-	void setup_pipe(t_data * data, int pipe_fd[2])
+	if (pipe(error_pipe) == -1)
 	{
-		int error_pipe[2];
-
-		if (pipe(pipe_fd) == -1)
-		{
-			perror("pipe");
-			exit(1);
-		}
-			if (pipe(error_pipe) == -1)
-		{
-			perror("pipe");
-			exit(1);
-		}
-		data->prev_pipe_read_end = pipe_fd[0];
-		data->command->fd_out = pipe_fd[1];
-		data->command->error_pipe_read = error_pipe[0];
-		data->command->error_pipe_write = error_pipe[1];
+		perror("pipe");
+		exit(1);
 	}
+	data->prev_pipe_read_end = pipe_fd[0];
+	data->command->fd_out = pipe_fd[1];
+	data->command->error_pipe_read = error_pipe[0];
+	data->command->error_pipe_write = error_pipe[1];
+}
 
-	void prepare_pipe_connection(t_data * data)
-	{
-		int pipe_fd[2];
+void	prepare_pipe_connection(t_data *data)
+{
+	int	pipe_fd[2];
 
-		if (data->current_token < data->token_count
-			&& data->tokens[data->current_token].type == TOKEN_PIPE
-			&& data->command->output_fd == STDOUT_FILENO)
-			setup_pipe(data, pipe_fd);
-		else
-			data->command->fd_out = -1;
-	}
+	if (data->current_token < data->token_count
+		&& data->tokens[data->current_token].type == TOKEN_PIPE
+		&& data->command->output_fd == STDOUT_FILENO)
+		setup_pipe(data, pipe_fd);
+	else
+		data->command->fd_out = -1;
+}

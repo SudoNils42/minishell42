@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:56:58 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/02/07 17:50:37 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/02/13 12:55:09 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,14 @@ int	parse_command(t_data *data)
 		redirect_processed = handle_redirection(data);
 		if (redirect_processed > 0)
 		{
-			if ((data->command->input_fd == -1) || (data->command->output_fd ==
-					-1))
+			if ((data->command->input_fd == -1)
+				|| (data->command->output_fd == -1))
 				return (1);
 		}
 		else
 		{
-			data->command->args[data->command->args_count] = data->tokens[data->current_token].value;
+			data->command->args[data->command->args_count]
+				= data->tokens[data->current_token].value;
 			data->command->args_count++;
 			data->current_token++;
 		}
@@ -83,8 +84,8 @@ int	execute_command(t_data *data)
 	prepare_pipe_connection(data);
 	is_builtin_cmd = is_builtin(data);
 	if (is_builtin_cmd && data->command->input_fd == STDIN_FILENO
-		&& data->command->output_fd == STDOUT_FILENO && data->command->fd_out ==
-		-1 && data->prev_pipe_read_end == -1)
+		&& data->command->output_fd == STDOUT_FILENO && data->command->fd_out
+		== -1 && data->prev_pipe_read_end == -1)
 	{
 		exec_builtins(data);
 		return (0);

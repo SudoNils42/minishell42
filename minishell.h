@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:18:44 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/02/13 00:11:30 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/02/13 12:53:34 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,11 @@
 # define TOKEN_DQUOTE 8
 # define TOKEN_NO_QUOTE 9
 
-
 typedef struct s_sub_token
 {
-	char	*content;
-	int		type;
-}	t_sub_token;
+	char		*content;
+	int			type;
+}				t_sub_token;
 
 typedef struct s_token
 {
@@ -178,7 +177,7 @@ void			unset_var_in_env(t_data *data, char *var_name);
 void			unset_var_in_exp(t_data *data, char *var_name);
 
 // expand_variables.c
-char	*expand_variables(char *str, t_data *data);
+char			*expand_variables(char *str, t_data *data);
 
 // signals.c
 void			signals(void);
@@ -195,6 +194,4 @@ void			parsing(t_data *data);
 // free.c
 void			free_all_exit(int exit_code);
 
-
-int	variable_globale(int error);
 #endif
