@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 19:04:22 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/02/13 16:12:30 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/02/13 16:33:25 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	redirect_in(t_data *data, int token_count)
 	{
 		if (data->current_token + 1 >= token_count)
 		{
-			ft_putstr_fd("minishell: syntax error near unexpected token '<'\n",
+			ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n",
 				2);
 			return (-1);
 		}
@@ -44,7 +44,7 @@ int	redirect_out(t_data *data, int token_count)
 	{
 		if (data->current_token + 1 >= token_count)
 		{
-			ft_putstr_fd("minishell: syntax error near unexpected token '>'\n",
+			ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n",
 				2);
 			return (-1);
 		}
@@ -69,7 +69,7 @@ int	redirect_append(t_data *data, int token_count)
 	{
 		if (data->current_token + 1 >= token_count)
 		{
-			ft_putstr_fd("minishell: syntax error near unexpected token '>>'\n",
+			ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n",
 				2);
 			return (-1);
 		}
@@ -96,7 +96,7 @@ int	redirect_heredoc(t_data *data, int token_count)
 		return (0);
 	if (data->current_token + 1 >= token_count)
 	{
-		ft_putstr_fd("minishell: syntax error near unexpected token '<<'\n", 2);
+		ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n", 2);
 		return (-1);
 	}
 	delimiter = data->tokens[data->current_token + 1].value;

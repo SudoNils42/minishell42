@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:56:58 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/02/13 16:19:55 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/02/13 16:41:09 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	process_command_line(t_data *data)
 			if (data->current_token < data->token_count
 				&& data->tokens[data->current_token].type == TOKEN_PIPE)
 				data->current_token++;
-			continue;
+			continue ;
 		}
 		if (execute_command(data) != 0)
 			return (1);
@@ -108,7 +108,8 @@ int	execute_command(t_data *data)
 		cmd_path = find_command_path(data->command->args[0], data);
 		if (!cmd_path)
 		{
-			perror(data->command->args[0]);
+			ft_putstr_fd(data->command->args[0], 2);
+			ft_putstr_fd(": command not found\n", 2);
 			return (1);
 		}
 	}
