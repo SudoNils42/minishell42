@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 19:04:22 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/02/06 19:36:29 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/02/13 16:12:30 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,7 @@ int	redirect_in(t_data *data, int token_count)
 		data->command->input_fd = open(filename, O_RDONLY);
 		if (data->command->input_fd == -1)
 		{
-			ft_putstr_fd("minishell: ", 2);
-			ft_putstr_fd(filename, 2);
-			ft_putstr_fd(": No such file or directory\n", 2);
+			perror("minishell");
 			return (-1);
 		}
 		return (2);
@@ -55,9 +53,7 @@ int	redirect_out(t_data *data, int token_count)
 				0644);
 		if (data->command->output_fd == -1)
 		{
-			ft_putstr_fd("minishell: ", 2);
-			ft_putstr_fd(filename, 2);
-			ft_putstr_fd(": Cannot create file\n", 2);
+			perror("minishell");
 			return (-1);
 		}
 		return (2);
@@ -82,9 +78,7 @@ int	redirect_append(t_data *data, int token_count)
 				0644);
 		if (data->command->output_fd == -1)
 		{
-			ft_putstr_fd("minishell: ", 2);
-			ft_putstr_fd(filename, 2);
-			ft_putstr_fd(": Cannot open file\n", 2);
+			perror("minishell");
 			return (-1);
 		}
 		return (2);

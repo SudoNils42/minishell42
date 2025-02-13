@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:56:58 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/02/13 12:55:09 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/02/13 16:19:55 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,17 @@ int	process_command_line(t_data *data)
 	init_pid_list(data);
 	while (data->current_token < data->token_count)
 	{
-		if ((parse_command(data) == 0) && (execute_command(data) == 1))
+		if (parse_command(data) != 0)
+		{
+			while (data->current_token < data->token_count
+				&& data->tokens[data->current_token].type != TOKEN_PIPE)
+				data->current_token++;
+			if (data->current_token < data->token_count
+				&& data->tokens[data->current_token].type == TOKEN_PIPE)
+				data->current_token++;
+			continue;
+		}
+		if (execute_command(data) != 0)
 			return (1);
 		if (data->current_token < data->token_count
 			&& data->tokens[data->current_token].type == TOKEN_PIPE)
@@ -58,16 +68,17 @@ int	parse_command(t_data *data)
 		if (data->tokens[data->current_token].type == TOKEN_PIPE)
 			break ;
 		redirect_processed = handle_redirection(data);
+		if (redirect_processed == -1)
+			return (1);
 		if (redirect_processed > 0)
 		{
-			if ((data->command->input_fd == -1)
-				|| (data->command->output_fd == -1))
+			if ((data->command->input_fd == -1) || (data->command->output_fd ==
+					-1))
 				return (1);
 		}
-		else
+		else if (redirect_processed == 0)
 		{
-			data->command->args[data->command->args_count]
-				= data->tokens[data->current_token].value;
+			data->command->args[data->command->args_count] = data->tokens[data->current_token].value;
 			data->command->args_count++;
 			data->current_token++;
 		}
@@ -84,8 +95,8 @@ int	execute_command(t_data *data)
 	prepare_pipe_connection(data);
 	is_builtin_cmd = is_builtin(data);
 	if (is_builtin_cmd && data->command->input_fd == STDIN_FILENO
-		&& data->command->output_fd == STDOUT_FILENO && data->command->fd_out
-		== -1 && data->prev_pipe_read_end == -1)
+		&& data->command->output_fd == STDOUT_FILENO && data->command->fd_out ==
+		-1 && data->prev_pipe_read_end == -1)
 	{
 		exec_builtins(data);
 		return (0);
@@ -97,8 +108,7 @@ int	execute_command(t_data *data)
 		cmd_path = find_command_path(data->command->args[0], data);
 		if (!cmd_path)
 		{
-			ft_putstr_fd(data->command->args[0], 1);
-			ft_putstr_fd(": command not found\n", 1);
+			perror(data->command->args[0]);
 			return (1);
 		}
 	}
