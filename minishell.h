@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:18:44 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/02/13 12:53:34 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/02/14 20:56:01 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@
 # define TOKEN_SQUOTE 7
 # define TOKEN_DQUOTE 8
 # define TOKEN_NO_QUOTE 9
+# define ERROR "minishell: syntax error near unexpected token `newline'\n"
 
 typedef struct s_sub_token
 {
@@ -52,7 +53,7 @@ typedef struct s_token
 {
 	char		*value;
 	int			type;
-	t_sub_token	**sub_token;
+	t_sub_token	**sub_tokens;
 }				t_token;
 
 typedef struct s_command
@@ -73,6 +74,7 @@ typedef struct s_data
 	char		**exp;
 	char		**raw_tokens;
 	char		*input;
+	char		*content;
 	int			token_count;
 	int			start;
 	int			flag_error;
@@ -191,6 +193,14 @@ void			make_exp(t_data *data, char **env);
 // parsing.c
 void			parsing(t_data *data);
 
+// // parsing_sub_token.c
+int				find_words(t_data *data, int *i);
+int				number_of_sub_token(t_data *data, int i);
+void			sub_token_quotes(t_token *token, t_data *data, int *i,
+					int *sub_token_count);
+void			analyse_quotes(t_token *token, t_data *data);
+void			sub_token_word(t_token *token, t_data *data, int *i,
+					int *sub_token_count);
 // free.c
 void			free_all_exit(int exit_code);
 

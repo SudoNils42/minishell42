@@ -6,7 +6,7 @@
 #    By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/05 19:02:17 by nbonnet           #+#    #+#              #
-#    Updated: 2025/02/06 00:41:37 by nbonnet          ###   ########.fr        #
+#    Updated: 2025/02/14 20:29:05 by nbonnet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,8 @@ SRCS = builtins/pwd.c \
        signals.c \
 	   n_redirect_utils.c \
 	   n_parsing.c \
-	   free.c
+	   free.c \
+	   n_parsing_sub_token.c
 
 OBJS = $(SRCS:.c=.o)
 
