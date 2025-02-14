@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rabatist <rabatist@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 14:29:47 by rabatist          #+#    #+#             */
-/*   Updated: 2025/02/05 18:14:55 by rabatist         ###   ########.fr       */
+/*   Updated: 2025/02/15 00:17:22 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	g_signals(int new)
 {
-	static int value;
+	static int	value;
 
 	if (new == -1)
 		return (value);
@@ -24,7 +24,6 @@ int	g_signals(int new)
 
 void	sig_int(int signal)
 {
-	
 	(void)signal;
 	printf("\n");
 	rl_replace_line("", 0);

@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:19:08 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/02/07 17:19:11 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/02/15 00:19:12 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ void	update_exp_without_equal(t_data *data, char *str)
 int	ft_export(t_data *data)
 {
 	int	i;
+	int	len;
 
 	i = 0;
 	if (!data->command->args[1])
@@ -119,7 +120,8 @@ int	ft_export(t_data *data)
 		else
 		{
 			write (2, "export: `", 9);
-			write (2, data->command->args[1], ft_strlen(data->command->args[1]));
+			len = ft_strlen(data->command->args[1]);
+			write (2, data->command->args[1], len);
 			write (2, "': not a valid identifier\n", 26);
 			return (1);
 		}

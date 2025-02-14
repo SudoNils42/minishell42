@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   n_parsing_sub_token.c                              :+:      :+:    :+:   */
+/*   parsing_sub_token.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 20:22:09 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/02/14 20:51:07 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/02/14 23:57:36 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	sub_token_quotes(t_token *token, t_data *data, int *i,
 	if (quote_type == '"')
 	{
 		token->sub_tokens[*sub_token_count]->content
-			= expand_variables(token->sub_tokens[*sub_token_count]->content,
+			= manage_dollar(token->sub_tokens[*sub_token_count]->content,
 				data);
 	}
 	(*sub_token_count)++;
@@ -98,7 +98,7 @@ void	sub_token_word(t_token *token, t_data *data, int *i,
 		token->sub_tokens[*sub_token_count]->content = ft_substr(data->content,
 				start, *i - start);
 		token->sub_tokens[*sub_token_count]->content
-			= expand_variables(token->sub_tokens[*sub_token_count]->content,
+			= manage_dollar(token->sub_tokens[*sub_token_count]->content,
 				data);
 		(*sub_token_count)++;
 	}
