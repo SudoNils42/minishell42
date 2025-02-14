@@ -1,31 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   n_pipe_or_word.c                                   :+:      :+:    :+:   */
+/*   n_expand_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/22 17:10:20 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/01/30 16:07:27 by nbonnet          ###   ########.fr       */
+/*   Created: 2025/02/14 21:29:23 by nbonnet           #+#    #+#             */
+/*   Updated: 2025/02/14 21:29:24 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-
-int	if_pipe(t_token token)
-{
-	if (token.type == TOKEN_PIPE)
-		return (1);
-	return (0);
-}
-
-int	if_word(t_data *data)
-{
-	if (data->tokens[data->current_token].type == TOKEN_WORD)
-	{
-		data->command->args[data->command->args_count]
-			= ft_strdup(data->tokens[data->current_token].value);
-		data->command->args_count++;
-	}
-	return (0);
-}

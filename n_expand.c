@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   n_expand_variables.c                               :+:      :+:    :+:   */
+/*   n_expand.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 14:33:24 by rabatist          #+#    #+#             */
-/*   Updated: 2025/02/13 16:55:14 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/02/14 21:31:37 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ char	*expand_variables(char *str, t_data *data)
 			free(exit_str);
 			i += 2;
 		}
-		else if (str[i] == '$' && (ft_isspace(str[i + 1]) == 1 || str[i
-				+ 1] == '\0'))
+		else if (str[i] == '$' && (ft_isspace(str[i + 1]) == 1
+				|| str[i + 1] == '\0'))
 		{
 			buf[0] = str[i];
 			buf[1] = '\0';

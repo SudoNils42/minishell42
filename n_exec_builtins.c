@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 15:55:53 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/02/06 16:59:13 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/02/14 22:11:35 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,17 @@ void	exec_builtins(t_data *data)
 		data->exit_status = ft_unset(data);
 	else if (ft_strcmp(data->command->args[0], "exit") == 0)
 		ft_exit(data);
+}
+
+int	is_builtin(t_data *data)
+{
+	char	*cmd;
+
+	if (!data->command->args[0])
+		return (0);
+	cmd = data->command->args[0];
+	return (ft_strcmp(cmd, "echo") == 0 || ft_strcmp(cmd, "cd") == 0
+		|| ft_strcmp(cmd, "pwd") == 0 || ft_strcmp(cmd, "export") == 0
+		|| ft_strcmp(cmd, "unset") == 0 || ft_strcmp(cmd, "env") == 0
+		|| ft_strcmp(cmd, "exit") == 0);
 }

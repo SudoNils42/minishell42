@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:18:44 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/02/14 20:56:01 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/02/14 22:16:58 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,8 @@ void			init_pid_list(t_data *data);
 
 // exec_utils.c
 void			wait_for_children(t_data *data);
-void			run_child_process(t_data *data, char *cmd_path, int is_builtin);
+void			run_child_process(t_data *data, char *cmd_path,
+					int is_builtin_cmd);
 void			cleanup_parent(t_data *data);
 void			setup_pipe(t_data *data, int pipe_fd[2]);
 void			prepare_pipe_connection(t_data *data);
@@ -127,12 +128,10 @@ int				handle_redirection(t_data *data);
 // redirect_utils.c
 int				process_redirection(int processed, t_data *data);
 
-// pipe_or_word.c
-int				if_word(t_data *data);
-int				if_pipe(t_token token);
-
+// exec_builtins.c
 void			exec_builtins(t_data *data);
 int				is_builtin(t_data *data);
+int				manage_builtin(t_data *data);
 
 // BUILTINS
 // cd.c

@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 17:51:27 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/02/13 12:53:58 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/02/14 21:52:11 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	wait_for_children(t_data *data)
 		waitpid(data->pids[i++], &status, 0);
 }
 
-void	run_child_process(t_data *data, char *cmd_path, int is_builtin)
+void	run_child_process(t_data *data, char *cmd_path, int is_builtin_cmd)
 {
 	if (data->command->input_fd != STDIN_FILENO)
 		dup2(data->command->input_fd, STDIN_FILENO);
@@ -32,7 +32,7 @@ void	run_child_process(t_data *data, char *cmd_path, int is_builtin)
 		dup2(data->command->fd_out, STDOUT_FILENO);
 	if (data->prev_pipe_read_end != -1)
 		close(data->prev_pipe_read_end);
-	if (is_builtin)
+	if (is_builtin_cmd)
 		exec_builtins(data);
 	else
 		execve(cmd_path, data->command->args, data->env);
