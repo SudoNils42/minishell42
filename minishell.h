@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:18:44 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/02/15 00:16:51 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/02/15 00:54:28 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,6 +205,7 @@ void			analyse_quotes(t_token *token, t_data *data);
 void			sub_token_word(t_token *token, t_data *data, int *i,
 					int *sub_token_count);
 // free.c
-void			free_all_exit(int exit_code);
+void			free_all(t_data *data);
+void			free_all_exit(t_data *data, int exit_code);
 
 #endif

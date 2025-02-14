@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 14:39:23 by rabatist          #+#    #+#             */
-/*   Updated: 2025/02/07 17:56:06 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/02/15 00:44:56 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void	ft_exit(t_data *data)
 		return ;
 	}
 	if (!data->command->args[1])
-		free_all_exit (data->exit_status);
-	free_all_exit (nbr);
+		free_all_exit (data, data->exit_status);
+	free_all_exit (data, nbr);
 }
 
 int	ft_exit2(t_data *data)
@@ -39,7 +39,7 @@ int	ft_exit2(t_data *data)
 		write (2, data->command->args[1], ft_strlen(data->command->args[1]));
 		write (2, ": numeric argument required\n", 28);
 		data->exit_status = 2;
-		free_all_exit (data->exit_status);
+		free_all_exit (data, data->exit_status);
 	}
 	nbr = ft_ratoi(data->command->args[1]);
 	if (nbr == -1)
@@ -48,7 +48,7 @@ int	ft_exit2(t_data *data)
 		write (2, data->command->args[1], ft_strlen(data->command->args[1]));
 		write (2, ": numeric argument required\n", 28);
 		data->exit_status = 2;
-		free_all_exit(data->exit_status);
+		free_all_exit(data, data->exit_status);
 	}
 	return (nbr);
 }
