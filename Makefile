@@ -6,7 +6,7 @@
 #    By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/05 19:02:17 by nbonnet           #+#    #+#              #
-#    Updated: 2025/02/14 22:15:06 by nbonnet          ###   ########.fr        #
+#    Updated: 2025/02/14 22:21:20 by nbonnet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,23 +27,23 @@ SRCS = builtins/pwd.c \
        builtins/export2.c \
        builtins/unset.c \
        builtins/exit.c \
-       n_main.c \
-       n_utils.c \
-       n_exec_utils.c \
-       n_exec.c \
-       n_command_path.c \
-       n_init.c \
-       n_exec_builtins.c \
-       n_redirect.c \
+       main.c \
+       utils.c \
+       exec_utils.c \
+       exec.c \
+       command_path.c \
+       init.c \
+       builtins_utils.c \
+       redirect.c \
 	   make_env.c \
-       n_expand.c \
+       expand.c \
        signals.c \
-	   n_redirect_utils.c \
-	   n_parsing.c \
+	   redirect_utils.c \
+	   parsing.c \
 	   free.c \
-	   n_parsing_sub_token.c \
-	   n_parsing_command.c \
-	   n_expand_utils.c
+	   parsing_sub_token.c \
+	   parsing_command.c \
+	   expand_utils.c
 
 OBJS = $(SRCS:.c=.o)
 
