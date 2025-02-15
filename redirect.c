@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 19:04:22 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/02/14 22:24:07 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/02/15 12:19:49 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	redirect_in(t_data *data, int token_count)
 		data->command->input_fd = open(filename, O_RDONLY);
 		if (data->command->input_fd == -1)
 		{
-			perror("minishell");
+			print_error(filename);
 			return (-1);
 		}
 		return (2);
@@ -51,7 +51,7 @@ int	redirect_out(t_data *data, int token_count)
 				0644);
 		if (data->command->output_fd == -1)
 		{
-			perror("minishell");
+			print_error(filename);
 			return (-1);
 		}
 		return (2);
@@ -75,7 +75,7 @@ int	redirect_append(t_data *data, int token_count)
 				0644);
 		if (data->command->output_fd == -1)
 		{
-			perror("minishell");
+			print_error(filename);
 			return (-1);
 		}
 		return (2);
@@ -87,7 +87,6 @@ int	redirect_heredoc(t_data *data, int token_count)
 {
 	char	*delimiter;
 	int		pipe_fd[2];
-	char	*line;
 
 	if (data->tokens[data->current_token].type != TOKEN_HEREDOC)
 		return (0);
@@ -98,15 +97,7 @@ int	redirect_heredoc(t_data *data, int token_count)
 	}
 	delimiter = data->tokens[data->current_token + 1].value;
 	pipe(pipe_fd);
-	while (1)
-	{
-		line = readline("> ");
-		if (ft_strcmp(line, delimiter) == 0)
-			break ;
-		write(pipe_fd[1], line, ft_strlen(line));
-		write(pipe_fd[1], "\n", 1);
-	}
-	close(pipe_fd[1]);
+	inside_heredoc(delimiter, pipe_fd);
 	data->command->input_fd = pipe_fd[0];
 	return (2);
 }

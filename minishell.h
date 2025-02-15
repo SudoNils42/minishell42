@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:18:44 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/02/15 00:54:28 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/02/15 14:16:58 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 # include <term.h>
 # include <termios.h>
 # include <unistd.h>
+# include <errno.h>
 
 # define TOKEN_WORD 1
 # define TOKEN_PIPE 2
@@ -127,11 +128,13 @@ int				handle_redirection(t_data *data);
 
 // redirect_utils.c
 int				process_redirection(int processed, t_data *data);
+void			inside_heredoc(char *delimiter, int pipe_fd[2]);
+void			print_first_error(char *filename);
+void			print_error(char *filename);
 
 // exec_builtins.c
 void			exec_builtins(t_data *data);
 int				is_builtin(t_data *data);
-int				manage_builtin(t_data *data);
 
 // BUILTINS
 // cd.c
@@ -205,7 +208,7 @@ void			analyse_quotes(t_token *token, t_data *data);
 void			sub_token_word(t_token *token, t_data *data, int *i,
 					int *sub_token_count);
 // free.c
-void			free_all(t_data *data);
+// void			free_all(t_data *data);
 void			free_all_exit(t_data *data, int exit_code);
 
 #endif
