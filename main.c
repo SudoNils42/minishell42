@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:56:15 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/02/15 14:14:55 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/02/15 17:54:42 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	main(int ac, char **av, char **env)
 
 	(void)ac;
 	(void)av;
-	init_data(&data, env);
+	init_data(&data);
 	make_env(&data, env);
 	make_exp(&data, env);
 	signals();

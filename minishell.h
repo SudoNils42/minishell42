@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:18:44 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/02/15 14:16:58 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/02/15 18:10:40 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include "./libft/libft.h"
 # include <curses.h>
 # include <dirent.h>
+# include <errno.h>
 # include <fcntl.h>
 # include <limits.h>
 # include <linux/limits.h>
@@ -31,7 +32,6 @@
 # include <term.h>
 # include <termios.h>
 # include <unistd.h>
-# include <errno.h>
 
 # define TOKEN_WORD 1
 # define TOKEN_PIPE 2
@@ -94,7 +94,7 @@ typedef struct s_data
 void			start(t_data *data);
 
 // init.c
-void			init_data(t_data *data, char **env);
+void			init_data(t_data *data);
 void			init_command(t_data *data);
 void			init_pid_list(t_data *data);
 
@@ -208,7 +208,8 @@ void			analyse_quotes(t_token *token, t_data *data);
 void			sub_token_word(t_token *token, t_data *data, int *i,
 					int *sub_token_count);
 // free.c
-// void			free_all(t_data *data);
+void			free_all(t_data *data);
+void			free_env(char **env);
 void			free_all_exit(t_data *data, int exit_code);
 
 #endif

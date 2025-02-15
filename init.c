@@ -6,25 +6,31 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 14:10:21 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/02/15 14:14:36 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/02/15 18:10:14 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	init_data(t_data *data, char **env)
+void	init_data(t_data *data)
 {
-	data->env = env;
-	data->tokens = NULL;
-	data->token_count = 0;
-	data->current_token = 0;
-	data->command = NULL;
+	data->env = NULL;
+	data->exp = NULL;
+	data->raw_tokens = NULL;
 	data->input = NULL;
+	data->content = NULL;
+	data->token_count = 0;
+	data->start = 0;
+	data->flag_error = 0;
+	data->current_token = 0;
+	data->total_pipes = 0;
+	data->prev_pipe_read_end = -1;
+	data->pid = 0;
 	data->pids = NULL;
 	data->pid_index = 0;
 	data->exit_status = 0;
-	data->flag_error = 0;
-	data->start = 0;
+	data->command = NULL;
+	data->tokens = NULL;
 }
 
 void	init_command(t_data *data)

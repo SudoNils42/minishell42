@@ -3,5 +3,6 @@
 		"n_minishell.h": "c",
 		"minishell.h": "c",
 		"unistd.h": "c"
-	}
+	},
+	"makefile.configureOnOpen": false
 }
