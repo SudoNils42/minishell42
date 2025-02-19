@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 14:10:21 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/02/15 18:10:14 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/02/19 18:12:03 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,20 @@ void	init_data(t_data *data)
 
 void	init_command(t_data *data)
 {
+	if (data->command) // Libérer l'ancienne commande si elle existe
+    {
+        free_command(data->command);
+        free(data->command);
+    }
 	data->command = malloc(sizeof(t_command));
+	if (!data->command)
+		return ;
 	data->command->args = malloc(sizeof(char *) * (data->token_count + 1));
+	if (!data->command->args)
+	{
+		free(data->command);
+		return ;
+	}
 	data->command->fd_out = -1;
 	data->command->fd_in = -1;
 	data->command->error_pipe_read = -1;

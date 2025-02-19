@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 22:14:53 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/02/14 22:24:09 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/02/19 16:08:52 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,13 @@ int	manage_redirect_processed(t_data *data)
 			return (1);
 		if (redirect_processed > 0)
 		{
-			if ((data->command->input_fd == -1)
-				|| (data->command->output_fd == -1))
+			if ((data->command->input_fd == -1) || (data->command->output_fd ==
+					-1))
 				return (1);
 		}
 		else if (redirect_processed == 0)
 		{
-			data->command->args[data->command->args_count]
-				= data->tokens[data->current_token].value;
+			data->command->args[data->command->args_count] = data->tokens[data->current_token].value;
 			data->command->args_count++;
 			data->current_token++;
 		}
@@ -61,6 +60,8 @@ int	parse_command(t_data *data)
 	int	return_value;
 
 	init_command(data);
+	if (!data->command || !data->command->args)
+		return (1);
 	handle_previous_pipe(data);
 	return_value = manage_redirect_processed(data);
 	if (return_value == 1)

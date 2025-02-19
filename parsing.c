@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 16:24:57 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/02/15 18:10:03 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/02/19 18:52:58 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,16 @@ void	add_token(t_data *data, char *start, int len, int type)
 	int		i;
 
 	new_token.value = ft_strndup(start, len);
+	if (!new_token.value)
+		return ;
 	new_token.type = type;
-	new_tokens = malloc(sizeof(t_token) * (data->token_count + 1));
+	new_token.sub_tokens = NULL;
+	new_tokens = malloc(sizeof(t_token) * (data->token_count + 2));
+	if (!new_tokens)
+	{
+		free(new_token.value);
+		return ;
+	}
 	i = -1;
 	while (++i < data->token_count)
 		new_tokens[i] = data->tokens[i];
@@ -93,20 +101,48 @@ void	parse_word(t_data *data, int *i)
 	start = *i;
 	find_end_of_word(data, i);
 	data->content = ft_substr(data->input, start, *i - start);
+	if (!data->content)
+		return ;
 	token.value = data->content;
 	token.type = TOKEN_WORD;
 	token.sub_tokens = NULL;
 	analyse_quotes(&token, data);
 	tmp = ft_strdup("");
+	if (!tmp)
+	{
+		free(data->content);
+		return ;
+	}
 	j = 0;
 	while (token.sub_tokens && token.sub_tokens[j])
 	{
 		new_tmp = ft_strjoin(tmp, token.sub_tokens[j]->content);
+		if (!new_tmp)
+		{
+			free(tmp);
+			free(data->content);
+			return ;
+		}
+		free(tmp);
 		tmp = new_tmp;
 		j++;
 	}
 	token.value = tmp;
 	add_token(data, token.value, ft_strlen(token.value), TOKEN_WORD);
+	free(tmp);
+	free(data->content);
+	    j = 0;
+    if (token.sub_tokens)
+    {
+        while (token.sub_tokens[j])
+        {
+            free_sub_token(token.sub_tokens[j]);
+            token.sub_tokens[j] = NULL;
+            j++;
+        }
+        free(token.sub_tokens);
+        token.sub_tokens = NULL;
+    }
 }
 
 void	parsing(t_data *data)

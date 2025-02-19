@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 20:22:09 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/02/15 18:10:30 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/02/19 18:47:43 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	find_words(t_data *data, int *i)
 	int		sub_token_count;
 	char	quote_type;
 
+	sub_token_count = 0;
 	while (data->content[*(i)])
 	{
 		if (data->content[*(i)] == '\'' || data->content[*(i)] == '"')
@@ -69,8 +70,7 @@ void	sub_token_quotes(t_token *token, t_data *data, int *i,
 			start, *i - start);
 	if (quote_type == '"')
 	{
-		token->sub_tokens[*sub_token_count]->content
-			= manage_dollar(token->sub_tokens[*sub_token_count]->content,
+		token->sub_tokens[*sub_token_count]->content = manage_dollar(token->sub_tokens[*sub_token_count]->content,
 				data);
 	}
 	(*sub_token_count)++;
@@ -81,7 +81,8 @@ void	sub_token_quotes(t_token *token, t_data *data, int *i,
 void	sub_token_word(t_token *token, t_data *data, int *i,
 		int *sub_token_count)
 {
-	int	start;
+	int		start;
+	char	*tmp;
 
 	start = *i;
 	while (data->content[*i] && data->content[*i] != '\''
@@ -95,11 +96,11 @@ void	sub_token_word(t_token *token, t_data *data, int *i,
 		if (!token->sub_tokens[*sub_token_count])
 			return ;
 		token->sub_tokens[*sub_token_count]->type = TOKEN_NO_QUOTE;
-		token->sub_tokens[*sub_token_count]->content = ft_substr(data->content,
-				start, *i - start);
-		token->sub_tokens[*sub_token_count]->content
-			= manage_dollar(token->sub_tokens[*sub_token_count]->content,
-				data);
+		tmp = ft_substr(data->content, start, *i - start);
+		if (!tmp)
+			return ;
+		token->sub_tokens[*sub_token_count]->content = manage_dollar(tmp, data);
+		free(tmp);
 		(*sub_token_count)++;
 	}
 }
@@ -123,4 +124,5 @@ void	analyse_quotes(t_token *token, t_data *data)
 		else
 			sub_token_word(token, data, &i, &sub_token_count);
 	}
+	token->sub_tokens[sub_token_count] = NULL;
 }
