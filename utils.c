@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 15:21:23 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/02/19 18:41:45 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/02/20 14:20:14 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,11 @@ char	*ft_strndup(const char *s, int n)
 	len = ft_strnlen(s, n);
 	dup = malloc(sizeof(char) * (len + 1));
 	if (!dup)
+	{
+		free(dup);
+		dup = NULL;
 		return (NULL);
+	}
 	ft_strlcpy(dup, s, len + 1);
 	dup[len] = '\0';
 	return (dup);

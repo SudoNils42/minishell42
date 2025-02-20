@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:56:58 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/02/19 18:52:34 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/02/20 15:29:42 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,11 @@ int	process_command_line(t_data *data)
 		if (execute_command(data) != 0)
 			return (1);
 		if (data->command)
-        {
-            free_command(data->command);
-            free(data->command);
-            data->command = NULL;
-        }
+		{
+			free_command(data->command);
+			free(data->command);
+			data->command = NULL;
+		}
 		if (data->current_token < data->token_count
 			&& data->tokens[data->current_token].type == TOKEN_PIPE)
 			data->current_token++;
@@ -78,11 +78,16 @@ int	execute_command(t_data *data)
 		exec_builtins(data);
 		return (0);
 	}
-	cmd_path = find_command_path(data->command->args[0], data);
-	if (!cmd_path)
+	if (is_builtin_cmd)
+		cmd_path = NULL;
+	else
 	{
-		print_first_error(data->command->args[0]);
-		return (1);
+		cmd_path = find_command_path(data->command->args[0], data);
+		if (!cmd_path)
+		{
+			print_first_error(data->command->args[0]);
+			return (1);
+		}
 	}
 	start_fork(data, cmd_path, is_builtin_cmd);
 	free(cmd_path);

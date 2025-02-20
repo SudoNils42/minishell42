@@ -6,7 +6,7 @@
 /*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 16:06:44 by rabatist          #+#    #+#             */
-/*   Updated: 2025/02/19 19:03:30 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/02/20 14:40:02 by nbonnet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,27 +30,19 @@ void	free_token(t_token *token)
 {
 	int	j;
 
-	if (token)
+	if (token->sub_tokens)
 	{
-		// if (token->value) regle les leaks mais ajoute des bugs
-		// {
-		// 	free(token->value);
-		// 	token->value = NULL;
-		// }
-		if (token->sub_tokens)
+		j = 0;
+		while (token->sub_tokens[j])
 		{
-			j = 0;
-			while (token->sub_tokens[j])
-			{
-				free_sub_token(token->sub_tokens[j]);
-				token->sub_tokens[j] = NULL;
-				j++;
-			}
-			free(token->sub_tokens);
-			token->sub_tokens = NULL;
+			free_sub_token(token->sub_tokens[j]);
+			token->sub_tokens[j] = NULL;
+			j++;
 		}
-		token = NULL;
+		free(token->sub_tokens);
+		token->sub_tokens = NULL;
 	}
+	token = NULL;
 }
 
 void	free_tokens(t_data *data)
@@ -63,6 +55,11 @@ void	free_tokens(t_data *data)
 		while (i < data->token_count)
 		{
 			free_token(&data->tokens[i]);
+			if (data->tokens[i].value)
+			{
+				free(data->tokens[i].value);
+				data->tokens[i].value = NULL;
+			}
 			i++;
 		}
 		free(data->tokens);
@@ -73,19 +70,10 @@ void	free_tokens(t_data *data)
 
 void	free_command(t_command *command)
 {
-	int	i;
-
 	if (command)
 	{
 		if (command->args)
 		{
-			i = 0;
-			while (command->args[i])
-			{
-				free(command->args[i]);
-				command->args[i] = NULL;
-				i++;
-			}
 			free(command->args);
 			command->args = NULL;
 		}
