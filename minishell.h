@@ -6,7 +6,7 @@
 /*   By: rabatist <rabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:18:44 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/02/20 17:35:52 by rabatist         ###   ########.fr       */
+/*   Updated: 2025/02/21 17:15:11 by rabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void			run_child_process(t_data *data, char *cmd_path,
 void			cleanup_parent(t_data *data);
 void			setup_pipe(t_data *data, int pipe_fd[2]);
 void			prepare_pipe_connection(t_data *data);
-void close_all_fds(t_data *data);
+void			close_all_fds(t_data *data);
 
 // exec.c
 int				parse_command(t_data *data);
@@ -211,7 +211,9 @@ void			sub_token_word(t_token *token, t_data *data, int *i,
 // free.c
 void			free_data(t_data *data);
 void			free_all_exit(t_data *data, int exit_code);
-void	free_sub_token(t_sub_token *sub_token);
-void	free_tokens(t_data *data);
-void	free_command(t_command *command);
+void			free_sub_token(t_sub_token *sub_token);
+void			free_tokens(t_data *data);
+void			free_command(t_command *command);
+void			free_test(t_data *data);
+
 #endif

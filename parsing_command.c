@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_command.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: rabatist <rabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 22:14:53 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/02/19 16:08:52 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/02/21 17:05:51 by rabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,14 @@ int	manage_redirect_processed(t_data *data)
 			return (1);
 		if (redirect_processed > 0)
 		{
-			if ((data->command->input_fd == -1) || (data->command->output_fd ==
-					-1))
+			if ((data->command->input_fd == -1) || (data->command->output_fd
+					== -1))
 				return (1);
 		}
 		else if (redirect_processed == 0)
 		{
-			data->command->args[data->command->args_count] = data->tokens[data->current_token].value;
+			data->command->args[data->command->args_count]
+				= data->tokens[data->current_token].value;
 			data->command->args_count++;
 			data->current_token++;
 		}

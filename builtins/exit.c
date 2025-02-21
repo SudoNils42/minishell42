@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: rabatist <rabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 14:39:23 by rabatist          #+#    #+#             */
-/*   Updated: 2025/02/15 15:32:14 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/02/21 16:29:32 by rabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	is_valid_exit_argument(char *str)
 
 	i = 0;
 	if (str[i] == '-' || str[i] == '+')
-		str++;
+		i++;
 	while (str[i])
 	{
 		if (!ft_isdigit(str[i]))

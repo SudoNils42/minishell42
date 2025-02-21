@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: rabatist <rabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 14:33:24 by rabatist          #+#    #+#             */
-/*   Updated: 2025/02/19 14:56:26 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/02/21 17:04:03 by rabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ char	*dollar_question(t_data *data, int *i, char *result)
 
 	exit_str = ft_itoa(data->exit_status);
 	if (!exit_str)
-		return (result); // Handle allocation failure
+		return (result);// Handle allocation failure
 	tmp = ft_strjoin(result, exit_str);
 	if (!tmp)
 	{
 		free(exit_str);
-		return (result); // Handle allocation failure
+		return (result);// Handle allocation failure
 	}
 	free(result);
 	result = tmp;
@@ -42,7 +42,7 @@ char	*only_dollar(int *i, char *str, char *result)
 	buf[1] = '\0';
 	tmp = ft_strjoin(result, buf);
 	if (!tmp)
-		return (result); // Handle allocation failure
+		return (result);// Handle allocation failure
 	free(result);
 	result = tmp;
 	(*i)++;
