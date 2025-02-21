@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: rabatist <rabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 19:04:22 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/02/15 15:33:03 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/02/21 15:17:59 by rabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	redirect_in(t_data *data, int token_count)
 		data->command->input_fd = open(filename, O_RDONLY);
 		if (data->command->input_fd == -1)
 		{
+			data->exit_status = 1;
 			print_error(filename);
 			return (-1);
 		}
@@ -51,6 +52,7 @@ int	redirect_out(t_data *data, int token_count)
 				0644);
 		if (data->command->output_fd == -1)
 		{
+			data->exit_status = 1;
 			print_error(filename);
 			return (-1);
 		}
@@ -75,6 +77,7 @@ int	redirect_append(t_data *data, int token_count)
 				0644);
 		if (data->command->output_fd == -1)
 		{
+			data->exit_status = 1;
 			print_error(filename);
 			return (-1);
 		}

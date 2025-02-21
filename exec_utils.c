@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbonnet <nbonnet@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: rabatist <rabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 17:51:27 by nbonnet           #+#    #+#             */
-/*   Updated: 2025/02/15 00:57:31 by nbonnet          ###   ########.fr       */
+/*   Updated: 2025/02/21 15:49:15 by rabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	run_child_process(t_data *data, char *cmd_path, int is_builtin_cmd)
 	if (is_builtin_cmd)
 		exec_builtins(data);
 	else
-		execve(cmd_path, data->command->args, data->env);
 	exit(1);
 }
 
